@@ -1,0 +1,290 @@
+nav#main-menu.navbar.navbar-default.navbar-fixed-top role='navigation'
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle [data-toggle='collapse'
+      ng-click='navCollapsed=!navCollapsed']
+       span.sr-only Toggle navigation
+       span.icon-bar
+       span.icon-bar
+       span.icon-bar
+      a.navbar-brand href='#'
+        = image_tag 'logo', class: 'navbar-logo'
+    .collapse.navbar-collapse uib-collapse='!navCollapsed'
+      ul.nav.navbar-nav
+        li
+          a href='#howitworks' How it works
+        li
+          a href='#steps' Easy to use
+        li
+          a href='#about' Technology
+        li
+          a href='#features' What you get
+        li
+          a href='#pricing' Subscription
+        li
+          a href='/faq' FAQ
+      form.navbar-form.navbar-right style='margin:0'
+        .form-group style='margin-right:10px'
+          a.btn.navbar-btn.btn-success href='/auth/login' sign in
+        .form-group
+          a.btn.navbar-btn.btn-warning href='/auth/register' register
+section#intro
+  .container-fluid
+    .row
+      .col-md-6.col-md-offset-1.col-xs-12.col-sm-12
+        div style='text-align:left'
+          = image_tag 'logo', class: ['img-responsive', 'hidden-xs']
+          h1 style='color:white;text-shadow:1px 1px 1px rgba(0,0,0,0.6)'
+            |Trading predictions powered by
+            br
+            |Artifical Intellegence
+          p.description
+            |Discover a machine learning tool for 85% accurate marketing prediction of stock quotes.
+    .row.text-center
+      a.btn.btn-success.main-try-btn Get started now!
+      a.btn.btn-default.btn-more.main-try-btn Learn more
+section#howitworks
+  .container-fluid
+    .row
+      .col-xs-10.col-xs-offset-1.col-md-8.col-sm-8.col-lg-8.col-sm-offset-2.col-md-offset-2.col-lg-offset-2
+        .row
+          .col-xs-12.col-md-12.col-lg-12.columns.section-heading.text-center
+            h2 How it works
+        .row.vertical-align-sm
+          .col-md-6.col-sm-12.col-xs-12
+            = image_tag 'macbook', class: 'img-responsive'
+          .col-md-6.col-sm-12.intro-p-md
+            |Real-Signal.com is an Artificial Intelligence information service designed to help you earn money on stock trading markets.
+            br
+            br
+            |We’ve analyzed huge amount of data using advanced machine learning algorithms. With this data, we built an Artificial Intelligence model that picks current trading results to predict the most probable future trends. Current system accuracy is&nbsp;
+            b 85%
+            |&nbsp;and it’s still improving!
+        .row.intro-p-md.vertical-align-sm
+          .col-sm-12.visible-sm.visible-xs
+            = image_tag 'ipad', class: 'img-responsive col-xs-12',
+              style: 'max-height:400px'
+          .col-md-6.col-sm-12.intro-p-md
+            |Real-Signal system is all about high accuracy of picks, but not at the expense of their profitability. That’s why it offers only a limited number of predictions a day sorting out the ones with lower average odds — this way we decrease risks and make sure your yield is high. On a distance, this approach results in&nbsp;
+          .col-md-6.col-sm-12.hidden-sm.hidden-xs
+            = image_tag 'ipad', class: 'img-responsive col-xs-12',
+              style: 'max-height:400px'
+section#steps
+  .container-fluid
+    .row
+      .col-xs-12.col-md-12.col-lg-12.columns.section-heading.text-center
+        h2 Easy to use
+    .row
+      .col-xs-12.col-md-2.col-md-offset-1
+        .text-center
+          .step-number 1
+          .step-img
+            = image_tag 'resume'
+          div
+            h3 Register for free
+            p Register for free. See predictions history and explore the Real-Signdl system to get a sense of how it works.
+      .col-xs-12.col-md-2
+        .text-center
+          .step-number 2
+          .step-img
+            = image_tag 'task'
+          div
+            h3 Choose your trading strategy
+            p Choose finacial tools and trading strategies according to your needs. Use Profit Calculator to see how your profit changes with different time distance and a level of risk.
+      .col-xs-12.col-md-2
+        .text-center
+          .step-number 3
+          .step-img
+            = image_tag 'calendar'
+          div
+            h3 Get market recommendation
+            p With your subscription you unlock the list of recommedations to sell or to buy financial tools. The system will send you the recommendations by e-mail and instant messages.
+      .col-xs-12.col-md-2
+        .text-center
+          .step-number 4
+          .step-img
+            = image_tag 'croupier'
+          div
+            h3 Trade with any broker
+            p Trade according the recommendations. We are an independent service and do not advertise any particular broker.
+      .col-xs-12.col-md-2
+        .text-center
+          .step-number 5
+          .step-img
+            = image_tag 'graph'
+          div
+            h3 Analyze quotes history
+            p Track quotes to choose the best strategy. All your recommendations are stored into your account so that you have full data at hand.
+section#about
+  .container
+    .row.row-bottom-padded-sm
+      .col-md-12.section-heading.text-center
+        h2 Technology
+    .row.row-bottom-padded-sm
+      .col-md-4.col-sm-6.col-xs-12.col-xxs-12
+        div
+          .tech-img
+            = image_tag 'cart'
+          .tech-desc
+            h3 Richest proprietary dataset
+            p We’ve analyzed huge amount of past qoutes taking into account a whole bunch of trading data statistics.
+      .col-md-4.col-sm-6.col-xs-12.col-xxs-12
+        div
+          .tech-img
+            = image_tag 'binary-code'
+          .tech-desc
+            h3 Advanced Machine Learning
+            p With advanced machine learning algorithms, we used this data to train the predictive Artificial Intelligence model. It’s been thoroughly tested and tuned and is currently 85% accurate.
+      .col-md-4.col-sm-6.col-xs-12.col-xxs-12
+        div
+          .tech-img
+            = image_tag 'list'
+          .tech-desc
+            h3 AI picks the most likely tendency
+            p Real-Signal analyzes upcoming quotes against historical data to find the most probable recommendations. Then it cuts off the tendency with lower odds. That’s how we get our high profitability predictions.
+      .col-md-4.col-sm-6.col-xs-12.col-xxs-12
+        div
+          .tech-img
+            = image_tag 'diagram'
+          .tech-desc
+            h3 Self-improving algorithms
+            p The more matches the system analyzes the smarter it gets. This means every new data adds accuracy to the model as our algorithms learn and adopt to new information on the fly.
+      .col-md-4.col-sm-6.col-xs-12.col-xxs-12
+        div
+          .tech-img
+            = image_tag 'cocktail'
+          .tech-desc
+            h3 AI does all the work
+            p You do not need to be an expert anymore to trade on finacial markets. Leave dull statistics and analysis to the Real-Signal machine. All you need is to choose a proper strategy and a financial tool.
+      .col-md-4.col-sm-6.col-xs-12.col-xxs-12
+        div
+          .tech-img
+            = image_tag 'work-online'
+          .tech-desc
+            h3 Math brings money
+            p Making money on financial market has never been so easy before. Real-Signal machine saves your time and offers you a smart and reliable way to earn a second income. Or maybe the main one!
+section#features
+  .container
+    .row
+      .col-md-12.section-heading.text-center
+        h2 What you get
+    .row
+      .col-md-12
+        .row
+          .col-xs-4.text-center
+            .person
+              = image_tag 'smartphone', class: 'img-responsive img-rounded'
+              h3 Live predicted list
+              p See the list of signals which recommend you to buy or to sell with best odds available.
+          .col-xs-4.text-center
+            .person
+              = image_tag 'pie-chart', class: 'img-responsive img-rounded'
+              h3 Personal strategy history
+              p See the strategies you’ve chose across the full prediction history and adjust your strategy with our analytics.
+          .col-xs-4.text-center
+            .person
+              = image_tag 'chart', class: 'img-responsive img-rounded'
+              h3 Up to 100% annual profit
+              p Machine counts chances, you count profit. See how much you would have earned the previous year with our Profit Calculator.
+section#pricing
+  .container
+    .row
+      .col-md-12.section-heading.text-center
+        h2 Subscription
+    .row.text-center
+      .col-sm-12.col-md-10.col-md-offset-1
+        .row
+          .col-md-4.col-sm-4
+            .package
+              .name 1 month
+              .price 22€ / week
+              .name.green-text
+                i.fa.fa-thumbs-o-up &nbsp;
+                |Free registration
+              hr
+              ul.price-option
+                li
+                  i.fa.fa-check &nbsp;
+                  strong
+                    span style='color:green' 89€
+                  |&nbsp;per month
+                li
+                  i.fa.fa-check &nbsp;
+                  .price-total
+                    strong
+                      span style='color:green' 89€
+                li.fixed-bottom-btn
+                  a.btn.btn-block.btn-default href='/auth/register'
+                    |Free registration
+          .col-md-4.col-sm-4
+            .package.brilliant
+              .name 6 months
+              .price
+                span style='color:green' 16€
+                |&nbsp;/ week
+              .name.green-text
+                i.fa.fa-thumbs-o-up &nbsp;
+                |You save 135€ (25%)
+              hr
+              ul.price-option
+                li
+                  i.fa.fa-check &nbsp;
+                  strong 66€
+                  |&nbsp;per month
+                li
+                  i.fa.fa-check &nbsp;
+                  .price-total 399€
+                li.fixed-bottom-btn
+                  a.btn.btn-block.btn-default href='/auth/register'
+                    |Free registration
+          .col-md-4.col-sm-4
+            .package
+              .name 3 months
+              .price 19€ / week
+              .name.green-text
+                i.fa.fa-thumbs-o-up &nbsp;
+                |You save 38€ (15%)
+              hr
+              ul.price-option
+                li
+                  i.fa.fa-check &nbsp;
+                  strong 76€
+                  |&nbsp;per month
+                li
+                  i.fa.fa-check &nbsp;
+                  .price-total 229€
+                li.fixed-bottom-btn
+                  a.btn.btn-block.btn-default href='/auth/register'
+                    |Free registration
+    .row
+      ul.list-inline style='margin:0 auto'
+        li
+          = image_tag 'visa', class: 'img-responsive payment-icon'
+        li
+          = image_tag 'mastercard', class: 'img-responsive payment-icon'
+        li
+          = image_tag 'paypal', class: 'img-responsive payment-icon'
+section#contacts
+  .container
+    .row
+      .col-sm-4.col-md-4.footer-text
+        p Real-Signal is an Artificial Intelligence information service that uses machine learning algorithms to predict outcomes of trading.
+        p We do not provide brocker services and do not recommend any of them.
+      .col-sm-4.col-md-4 style='font-size:13px'
+        p
+          a href='/terms' Terms of use
+        p
+          a href='/faq' FAQ
+        p Copyright © 2016 Real-Signal.com. All rights reserved.
+      .col-sm-4.col-md-4 style='font-size:13px'
+        p
+          |Write us at 
+          a ng-click='openEm()' ng-show='!showEm' style='cursor:pointer' ...
+          a ng-href='mailto:{{showEm}}' ng-show='showEm'
+            |{{showEm}}
+        br
+        ul.list-inline
+          li
+            = image_tag 'fb', class: 'img-social'
+          li
+            = image_tag 'twitter', class: 'img-social'
