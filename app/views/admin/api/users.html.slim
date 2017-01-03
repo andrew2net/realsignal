@@ -1,0 +1,35 @@
+#users-grid ui-grid='usersGrid'
+.loading-stub ng-show='loadingItems'
+
+script type='text/ng-template' id='userModal.html'
+  form name='userForm' ng-submit='ok()'
+    .modal-header
+      h3.modal-title User
+    .modal-body
+      input.hidden type='email'
+      input.hidden type='password'
+      .form-group
+        label First name
+        input.form-control ng-model='item.first_name'
+      .form-group
+        label Last name
+        input.form-control ng-model='item.last_name'
+      .form-group.required
+        label E-mail
+        input.form-control [ type='email' ng-model='item.email' required ]
+      fieldset
+        .form-group ng-class='{required: !item.id}'
+          label Password (min 6, max 128)
+          input.form-control [type='password' ng-model='item.password'
+           ng-minlength='6' ng-maxlength='128' ng-required='!item.id']
+        .form-group ng-class='{required: !item.id}'
+          label Confirm password
+          input.form-control [ng-model='item.password_confirmation'
+            compare-to='item.password' ng-minlength='6' ng-maxlength='128'
+            ng-required='!item.id' type='password']
+    .modal-footer
+      button.btn.btn-primary [title='Save'
+        ng-disabled='userForm.$invalid || userForm.$pristine']
+        span.glyphicon.glyphicon-save
+      a.btn.btn-default ng-click='cancel()' Cancel
+    .loading-stub ng-show='saving'

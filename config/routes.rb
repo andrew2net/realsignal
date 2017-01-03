@@ -1,6 +1,28 @@
 Rails.application.routes.draw do
+  devise_for :users
   scope module: :application do
     root 'main#index'
+
+    namespace :api do
+      get 'views/:view', action: :views
+    end
+  end
+
+  namespace :admin do
+    root 'main#index'
+
+    resources :admins, only: [:index, :create, :update, :destroy] do
+      get :view, on: :collection
+    end
+
+    resources :users, only: [:index, :create, :update, :destroy]
+
+    devise_for :admins, only: [:session]
+
+    resources :subscription_types, only: [:index, :create, :update, :destroy] do
+      get :view, on: :collection
+    end
+
     namespace :api do
       get 'views/:view', action: :views
     end

@@ -1,0 +1,47 @@
+nav.navbar.navbar-default role='navigation'
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle [ng-click='isNavCollapsed = !isNavCollapsed']
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+      a.navbar-brand ui-sref='main' Realsignal Admin
+
+    .collapse.navbar-collapse uib-collapse='isNavCollapsed'
+      ul.nav.navbar-nav
+        li ui-sref-active='active'
+          a ui-sref='main.subscription_types' Subscription types
+        li [ui-sref-active='active' uib-dropdown]
+          a [href='#' uib-dropdown-toggle] Admin
+          ul.dropdown-menu [ui-dropdown-menu]
+            li ng-class='{active: $state.includes("main.admins")}'
+              a href='#' ui-sref='main.admins' Administrators
+            li ng-class='{active: $state.includes("main.users")}'
+              a href='#' ui-sref='main.users' Users
+
+      button.btn.btn-default.navbar-btn.navbar-right [title='Sign out'
+      ng-click='signOut()']
+        span.glyphicon.glyphicon-log-out
+
+/p.notice = notice
+/p.alert = alert
+
+.container-fluid
+  ui-view
+
+script type='text/ng-template' id='gridAddButton.html'
+  .ui-grid-cell-contents
+    button.btn.btn-default.btn-xs [ng-click="grid.appScope.addItem()"
+      style="width:50px" title='Add {{grid.appScope.itemName}}']
+      span.glyphicon.glyphicon-plus
+
+script type='text/ng-template' id='gridEditRemoveButtons.html'
+  .ui-grid-cell-contents
+    button.btn.btn-default.btn-xs [ng-click="grid.appScope.editItem(row)"
+      title='Edit {{grid.appScope.itemName}}']
+      span.glyphicon.glyphicon-edit
+    button.btn.btn-default.btn-xs [ng-click="grid.appScope.removeItem(row)"
+      title='Remove {{grid.appScope.itemName}}']
+      span.glyphicon.glyphicon-trash

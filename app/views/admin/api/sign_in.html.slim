@@ -1,0 +1,25 @@
+.alert-danger [uib-alert ng-show='error' close='closeAlert()']
+  |Invalid email or password!
+.panel.panel-default.login-panel
+  .panel-heading
+    h3.panel-title Log in
+
+  .panel-content
+    .row
+      .col-md-10.col-md-offset-1
+        form#new_admin ng-submit='submitForm()'
+          .form-group
+            label Email
+            input.form-control ng-model='admin.email'
+
+          .form-group
+            label Password
+            input.form-control type='password' ng-model='admin.password'
+
+          .checkbox.pull-left
+            label
+              input type='checkbox' ng-model='admin.remember_me' Remember me
+
+          p.pull-right
+            button.btn.btn-default Log in
+  .loading-stub ng-show='loading'

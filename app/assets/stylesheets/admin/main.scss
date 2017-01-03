@@ -1,0 +1,50 @@
+html, body{
+  height: 100%;
+}
+
+.form-group.required label:after {
+   content: " *";
+   color: red;
+}
+
+input.ng-touched.ng-invalid{
+  background-color: #f2dede;
+}
+
+input.ng-dirty.ng-valid{
+  background-color: #dff0d8;
+}
+
+.login-panel{
+  height: 250px;
+  width: 400px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+}
+
+.loading-stub{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.5);
+  top: 0;
+  left: 0;
+  &:before{
+    content: " ";
+    margin: auto;
+    background: #ddd image-url("loader.png") no-repeat center;
+    height: 80px;
+    width: 100px;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
