@@ -1,0 +1,28 @@
+#tools-grid ui-grid='toolsGrid'
+.loading-stub ng-show='loadingItems'
+
+script type='text/ng-template' id='toolModal.html'
+  form name='toolForm' ng-submit='ok()'
+    .modal-header
+      h3.modal-title Tool
+    .modal-body
+      a.pull-right.btn.btn-default [title='Add paper'
+      ng-click='callbacks.addPaper(item)']
+        span.glyphicon.glyphicon-plus
+      .form-group
+        label
+          |Name: {{item.name}}
+      .row.clearfix ng-repeat='tool_paper in item.papers'
+        .col-xs-7
+          .form-group
+            select.form-control [ng-model='tool_paper.paper_id' required
+            ng-options='paper.id as paper.name for paper in callbacks.papers']
+        .col-xs-4
+          .form-group
+            input.form-control [type='number' ng-model='tool_paper.volume'
+            step='0.1' string-to-number required]
+        .col-xs-1
+          a.pull-right.btn.btn-default [title='Remove paper'
+          ng-click='callbacks.removePaper(item, tool_paper, toolForm)']
+            span.glyphicon.glyphicon-minus
+    = render partial: 'modal_buttons', locals: { form_name: 'toolForm' }

@@ -1,6 +1,6 @@
 angular.module 'app'
-.controller 'SubscriptionTypesCtrl', ['$scope', '$uibModal', 'SubscriptionType',
-($scope, $uibModal, SubscriptionType)->
+.controller 'SubscriptionTypesCtrl', ['$scope', '$editModal', 'SubscriptionType',
+($scope, $editModal, SubscriptionType)->
   $scope.itemName = 'Subscription type'
   $scope.subscriptionTypes = []
 
@@ -20,31 +20,18 @@ angular.module 'app'
     data: 'subscriptionTypes'
   }
 
-  openModal = (subscriptionType)->
-    editModal = $uibModal.open {
-      templateUrl: 'editModal.html'
-      controller: 'EditModalCtrl'
-      resolve: {
-        item: -> subscriptionType
-      }
-    }
-    editModal.result.then ->
-      loadItems()
-
-  $scope.addItem = ->
-    openModal new SubscriptionType
-
-  $scope.editItem = (row)->
-    openModal row.entity
-
-  $scope.removeItem = (row)->
-    if confirm "Delete #{row.entity.portid} #{row.entity.symid}. Are you sure?"
-      row.entity.$remove -> loadItems()
-
   loadItems = ->
     $scope.loadingItems = true
     $scope.subscriptionTypes = SubscriptionType.query ->
       $scope.loadingItems = false
+
+  callbacks = { reloadItems: loadItems }
+
+  templateUrl = 'subscriptionTypeModal.html'
+  $scope.addItem = -> $editModal.open new SubscriptionType, templateUrl, callbacks
+  $scope.editItem = (row)-> $editModal.open row.entity, templateUrl, callbacks
+  $scope.removeItem = (row)-> $editModal.remove(row.entity,
+    "#{row.entity.portid} #{row.entity.symid}", callbacks)
 
   loadItems()
 ]

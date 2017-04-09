@@ -1,6 +1,6 @@
 angular.module 'app'
-.controller 'UsersCtrl', ['$scope', '$uibModal', 'User',
-($scope, $uibModal, User)->
+.controller 'UsersCtrl', ['$scope', '$editModal', 'User',
+($scope, $editModal, User)->
   $scope.itemName = 'User'
   $scope.users = []
 
@@ -20,17 +20,10 @@ angular.module 'app'
     data: 'users'
   }
 
-  openModal = (user)->
-    editModal = $uibModal.open {
-      templateUrl: 'userModal.html'
-      controller: 'EditModalCtrl'
-      resolve: { item: -> user }
-    }
-    editModal.result.then -> loadItems()
+  templateUrl = 'userModal.html'
+  $scope.addItem = -> $editModal.open new User, templateUrl, loadItems
 
-  $scope.addItem = -> openModal new User
-
-  $scope.editItem = (row)-> openModal row.entity
+  $scope.editItem = (row)-> $editModal.open row.entity, templateUrl, loadItems
 
   $scope.removeItem = (row)->
     if confirm "Delete #{row.entity.email}. Are you sure?"

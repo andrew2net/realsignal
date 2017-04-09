@@ -2,12 +2,11 @@ class Admin::SubscriptionTypesController < ApplicationController
   before_action :authenticate_admin_admin!
   layout 'admin'
 
-  def view
-    render 'admin/main/index'
-  end
-
   def index
-    render json: SubscriptionType.all, only: attrs
+    respond_to do |format|
+      format.html { render 'admin/main/index' }
+      format.json { render json: SubscriptionType.all, only: attrs }
+    end
   end
 
   def create
@@ -30,6 +29,6 @@ class Admin::SubscriptionTypesController < ApplicationController
   end
 
   def subscription_type_params
-    params.permit :id, :portid, :symid, :price, :description
+    params.permit attrs
   end
 end

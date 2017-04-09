@@ -1,0 +1,20 @@
+#papers-grid ui-grid='papersGrid'
+.loading-stub ng-show='loadingItems'
+
+script type='text/ng-template' id='paperModal.html'
+  form name='paperForm' ng-submit='ok()'
+    .modal-header
+      h3.modal-title Paper
+    .modal-body
+      .form-group.required
+        label Name
+        input.form-control [ng-model='item.name' required]
+      .form-group.required
+        label Tick size
+        input.form-control [type='number' ng-model='item.tick_size'
+        step='0.00001' min='0', max='9.99999' required string-to-number]
+      .form-group.required
+        label Tick cost
+        input.form-control [type='number' ng-model='item.tick_cost'
+        step='0.00001' min='0', max='9.99999' required string-to-number]
+    = render partial: 'modal_buttons', locals: { form_name: 'paperForm' }

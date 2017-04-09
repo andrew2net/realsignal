@@ -1,0 +1,6 @@
+.modal-footer
+  button.btn.btn-primary [title='Save'
+  ng-disabled="#{form_name}.$invalid || #{form_name}.$pristine"]
+    span.glyphicon.glyphicon-save
+  a.btn.btn-default ng-click='cancel()' Cancel
+.loading-stub ng-show='saving'

@@ -11,8 +11,15 @@ nav.navbar.navbar-default role='navigation'
 
     .collapse.navbar-collapse uib-collapse='isNavCollapsed'
       ul.nav.navbar-nav
-        li ui-sref-active='active'
-          a ui-sref='main.subscription_types' Subscription types
+        li [ui-sref-active='active' uib-dropdown]
+          a [href='#' uib-dropdown-toggle] Directory
+          ul.dropdown-menu [ui-dropdown-menu]
+            li ng-class='{active: $state.includes("main.papers")}'
+              a ui-sref='main.papers' Papers
+            li ng-class='{active: $state.includes("main.tools")}'
+              a ui-sref='main.tools' Tools
+            li ng-class='{active: $state.includes("main.subscription_types")}'
+              a ui-sref='main.subscription_types' Subscription types
         li [ui-sref-active='active' uib-dropdown]
           a [href='#' uib-dropdown-toggle] Admin
           ul.dropdown-menu [ui-dropdown-menu]

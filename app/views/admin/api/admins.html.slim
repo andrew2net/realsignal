@@ -21,9 +21,4 @@ script type='text/ng-template' id='adminModal.html'
           input.form-control [ ng-model='item.password_confirmation'
             compare-to='item.password' ng-minlength='6' ng-maxlength='128'
             ng-required='!item.id' type='password']
-    .modal-footer
-      button.btn.btn-primary [title='Save'
-        ng-disabled='adminForm.$invalid || adminForm.$pristine']
-        span.glyphicon.glyphicon-save
-      a.btn.btn-default ng-click='cancel()' Cancel
-    .loading-stub ng-show='saving'
+    = render partial: 'modal_buttons', locals: {form_name: 'adminForm'}

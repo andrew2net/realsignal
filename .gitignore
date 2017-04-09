@@ -19,3 +19,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+/config/database.yml
+/config/deploy.rb
+/config/deploy_old.rb
+/config/secrets.yml
+/realsignal.sql.gz

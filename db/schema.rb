@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161229232249) do
+ActiveRecord::Schema.define(version: 20170409092206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(version: 20161229232249) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "papers", force: :cascade do |t|
+    t.string   "name",       limit: 8,                         null: false
+    t.decimal  "tick_size",            precision: 6, scale: 5, null: false
+    t.decimal  "tick_cost",            precision: 6, scale: 5, null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+  end
+
   create_table "recom_signals", force: :cascade do |t|
     t.integer  "subscription_type_id",                          null: false
     t.string   "recom",                                         null: false
@@ -49,6 +57,21 @@ ActiveRecord::Schema.define(version: 20161229232249) do
     t.text     "description"
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+  end
+
+  create_table "tool_papers", force: :cascade do |t|
+    t.integer  "tool_id",                            null: false
+    t.integer  "paper_id",                           null: false
+    t.decimal  "volume",     precision: 2, scale: 1, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["paper_id"], name: "index_tool_papers_on_paper_id", using: :btree
+    t.index ["tool_id"], name: "index_tool_papers_on_tool_id", using: :btree
+  end
+
+  create_table "tools", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,4 +102,6 @@ ActiveRecord::Schema.define(version: 20161229232249) do
   end
 
   add_foreign_key "recom_signals", "subscription_types"
+  add_foreign_key "tool_papers", "papers"
+  add_foreign_key "tool_papers", "tools", on_delete: :cascade
 end

@@ -7,15 +7,27 @@ angular.module 'app', ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.grid']
       controller: 'MainCtrl'
       templateUrl: '/admin/api/views/main'
     }
+    papers = {
+      name: 'main.papers'
+      url: '/papers'
+      controller: 'PapersCtrl'
+      templateUrl: '/admin/api/views/papers'
+    }
+    tools = {
+      name: 'main.tools'
+      url: '/tools'
+      controller: 'ToolsCtrl'
+      templateUrl: '/admin/api/views/tools'
+    }
     subscribionTypes = {
       name: 'main.subscription_types'
-      url: '/subscription_types/view'
+      url: '/subscription_types'
       controller: 'SubscriptionTypesCtrl'
       templateUrl: '/admin/api/views/subscription_types'
     }
     admins = {
       name:'main.admins'
-      url: '/admins/view'
+      url: '/admins'
       templateUrl: '/admin/api/views/admins'
       controller: 'AdminsCtrl'
     }
@@ -32,19 +44,11 @@ angular.module 'app', ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.grid']
       templateUrl: '/admin/api/views/sign_in'
     }
     $stateProvider.state mainState
+    $stateProvider.state papers
+    $stateProvider.state tools
     $stateProvider.state subscribionTypes
     $stateProvider.state admins
     $stateProvider.state users
     $stateProvider.state signInState
     $locationProvider.html5Mode true
 ]
-.directive 'stringToNumber', ->
-  return {
-    require: 'ngModel',
-    link: (scope, element, attrs, ngModel)->
-      ngModel.$parsers.push (value)->
-        '' + value
-
-      ngModel.$formatters.push (value)->
-        parseFloat value
-  }

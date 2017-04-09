@@ -2,12 +2,11 @@ class Admin::AdminsController < ApplicationController
   before_action :authenticate_admin_admin!
   layout 'admin'
 
-  def view
-    render 'admin/main/index'
-  end
-
   def index
-    render json: Admin.all, only: [:id, :email]
+    respond_to do |format|
+      format.html { render 'admin/main/index' }
+      format.json { render json: Admin.all, only: [:id, :email] }
+    end
   end
 
   def create

@@ -1,6 +1,6 @@
 angular.module 'app'
-.controller 'AdminsCtrl', ['$scope', 'Admin', '$uibModal',
-($scope, Admin, $uibModal)->
+.controller 'AdminsCtrl', ['$scope', 'Admin', '$editModal',
+($scope, Admin, $editModal)->
   $scope.itemName = 'Admin'
   $scope.admins = []
 
@@ -18,31 +18,18 @@ angular.module 'app'
     data: 'admins'
   }
 
-  openModal = (admin)->
-    editModal = $uibModal.open {
-      templateUrl: 'adminModal.html'
-      controller: 'EditModalCtrl'
-      resolve: {
-        item: -> admin
-      }
-    }
-    editModal.result.then ->
-      loadItems()
-
-  $scope.addItem = ->
-    openModal new Admin
-
-  $scope.editItem = (row)->
-    openModal row.entity
-
-  $scope.removeItem = (row)->
-    if confirm "Delete #{row.entity.email}. Are you sure?"
-      row.entity.$remove -> loadItems()
-
   loadItems = ->
     $scope.loadingItems = true
     $scope.admins = Admin.query ->
       $scope.loadingItems = false
+
+  callbacks = { reloadItems: loadItems }
+
+  templateUrl = 'adminModal.html'
+  $scope.addItem = -> $editModal.open new Admin, templateUrl, callbacks
+  $scope.editItem = (row)-> $editModal.open row.entity, templateUrl, callbacks
+  $scope.removeItem = (row)-> $editModal.remove(row.entity, row.entity.email,
+    callbacks)
 
   loadItems()
 ]
