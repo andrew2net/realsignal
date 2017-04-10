@@ -18,8 +18,6 @@ angular.module 'app'
     data: 'tools'
   }
 
-  papers = Paper.query()
-
   tool = {}
   tool_name_generate = (newVal, oldVal)->
     return unless newVal and newVal != oldVal
@@ -88,5 +86,6 @@ angular.module 'app'
   $scope.removeItem = (row)-> $editModal.remove(row.entity, row.entity.name,
     loadItems)
 
-  loadItems()
+  papers = Paper.query ->
+    loadItems()
 ]
