@@ -53,10 +53,9 @@ angular.module 'app'
 
   loadItems = ->
     $scope.loadingItems = true
-    Tool.query (tools)->
-      for t in tools
+    $scope.tools = Tool.query (tls)->
+      for t in tls
         t.name = tool_name t.papers
-      $scope.tools = tools
       $scope.loadingItems = false
 
   addPaper = (t)->
