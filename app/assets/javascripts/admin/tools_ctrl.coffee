@@ -66,6 +66,9 @@ angular.module 'app'
     tool.papers.splice i, 1
     form.$setDirty()
 
+  papers = Paper.query ->
+    loadItems()
+
   callbacks = {
     reloadItems: loadItems
     addPaper: addPaper
@@ -85,7 +88,4 @@ angular.module 'app'
 
   $scope.removeItem = (row)-> $editModal.remove(row.entity, row.entity.name,
     loadItems)
-
-  papers = Paper.query ->
-    loadItems()
 ]

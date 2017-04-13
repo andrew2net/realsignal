@@ -16,3 +16,6 @@ angular.module 'app'
 .factory 'Tool', ['$resource', ($resource)->
   $resource '/admin/tools/:id.json', id: '@id', { update:{ method: 'PUT' }}
 ]
+.factory 'Strategy', ['$resource', ($resource)->
+  $resource '/admin/strategies/:id.json', id: '@id', { update:{ method: 'PUT' }}
+]

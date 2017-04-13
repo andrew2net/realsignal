@@ -31,7 +31,7 @@ angular.module 'app'
   $scope.addItem = -> $editModal.open new SubscriptionType, templateUrl, callbacks
   $scope.editItem = (row)-> $editModal.open row.entity, templateUrl, callbacks
   $scope.removeItem = (row)-> $editModal.remove(row.entity,
-    "#{row.entity.portid} #{row.entity.symid}", callbacks)
+    "#{row.entity.portid} #{row.entity.symid}", loadItems)
 
   loadItems()
 ]

@@ -1,14 +1,13 @@
 angular.module 'app'
-.controller 'PapersCtrl', ['$scope', '$editModal', 'Paper',
-($scope, $editModal, Paper)->
-  $scope.itemName = 'Paper'
-  $scope.papers = []
+.controller 'StrategiesCtrl', ['$scope', '$editModal', 'Strategy',
+($scope, $editModal, Strategy)->
+  $scope.itemName = 'Strategy'
+  $scope.strategies = []
 
-  $scope.papersGrid = {
+  $scope.strategiesGrid = {
     columnDefs: [
       { name: 'Name', field: 'name' }
-      { name: 'Tick size', field: 'tick_size', type: 'number' }
-      { name: 'Tick cost', field: 'tick_cost', type: 'number' }
+      { name: 'Leverage', field: 'leverage', type: 'number'}
       {
         name: 'Add'
         field: 'add'
@@ -17,17 +16,17 @@ angular.module 'app'
         width: 60
       }
     ]
-    data: 'papers'
+    data: 'strategies'
   }
 
   loadItems = ->
-    $scope.loadingItems = true
-    $scope.papers = Paper.query -> $scope.loadingItems = false
+    $scope.loadItems = true
+    $scope.strategies = Strategy.query -> $scope.loadingItems = false
 
   callbacks = { reloadItems: loadItems }
 
-  templateUrl = 'paperModal.html'
-  $scope.addItem = -> $editModal.open new Paper, templateUrl, callbacks
+  templateUrl = 'strategyModal.html'
+  $scope.addItem = -> $editModal.open new Strategy, templateUrl, callbacks
   $scope.editItem = (row)-> $editModal.open row.entity, templateUrl, callbacks
   $scope.removeItem = (row)-> $editModal.remove(row.entity, row.entity.name,
     loadItems)

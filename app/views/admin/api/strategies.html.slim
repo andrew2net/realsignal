@@ -1,0 +1,16 @@
+#strategies-grid ui-grid='strategiesGrid'
+.loading-stub ng-show='loadingItems'
+
+script type='text/ng-template' id='strategyModal.html'
+  form name='strategyForm' ng-submit='ok()'
+    .modal-header
+      h3.modal-title Strategy
+    .modal-body
+      .form-group.required
+        label Name
+        input.form-control [ng-model='item.name' required]
+      .form-group.required
+        label Leverage
+        input.form-control [type='number' ng-model='item.leverage' required
+          string-to-number]
+    = render partial: 'modal_buttons', locals: { form_name: 'paperForm' }

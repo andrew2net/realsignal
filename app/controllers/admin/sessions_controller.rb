@@ -20,7 +20,6 @@ class Admin::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
-  #   super
     result = sign_out(:admin_admin)
     render json: {result: result}
   end
