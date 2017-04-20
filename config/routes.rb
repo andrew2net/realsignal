@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :papers, only: [:index, :create, :update, :destroy]
     resources :tools, only: [:index, :create, :update, :destroy]
     resources :strategies, only: [:index, :create, :update, :destroy]
+    resources :portfolio_strategies, only: [:index, :create, :update, :destroy]
 
     namespace :api do
       get 'views/:view', action: :views

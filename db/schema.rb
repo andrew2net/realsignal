@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413111331) do
+ActiveRecord::Schema.define(version: 20170419092123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,12 @@ ActiveRecord::Schema.define(version: 20170413111331) do
     t.datetime "updated_at",                                   null: false
   end
 
+  create_table "portfolio_strategies", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recom_signals", force: :cascade do |t|
     t.integer  "subscription_type_id",                          null: false
     t.string   "recom",                                         null: false
@@ -53,8 +59,10 @@ ActiveRecord::Schema.define(version: 20170413111331) do
   create_table "strategies", force: :cascade do |t|
     t.string   "name"
     t.integer  "leverage"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "portfolio_strategy_id"
+    t.index ["portfolio_strategy_id"], name: "index_strategies_on_portfolio_strategy_id", using: :btree
   end
 
   create_table "subscription_types", force: :cascade do |t|
@@ -109,6 +117,7 @@ ActiveRecord::Schema.define(version: 20170413111331) do
   end
 
   add_foreign_key "recom_signals", "subscription_types"
+  add_foreign_key "strategies", "portfolio_strategies"
   add_foreign_key "tool_papers", "papers"
   add_foreign_key "tool_papers", "tools", on_delete: :cascade
 end

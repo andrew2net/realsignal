@@ -24,7 +24,7 @@ class Admin::StrategiesController < ApplicationController
 
   protected
   def attrs
-    [:id, :name, :leverage]
+    [:id, :name, :leverage, :portfolio_strategy_id]
   end
 
   def strategy_params

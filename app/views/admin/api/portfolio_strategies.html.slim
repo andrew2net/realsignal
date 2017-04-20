@@ -1,0 +1,12 @@
+#portfolio-strategies-grid ui-grid='portfolioStrategiesGrid'
+.loading-stub ng-show='loadingItems'
+
+script type='text/ng-template' id='portfolioStrategyModal.html'
+  form name='portfolioStrategyForm' ng-submit='ok()'
+    .modal-header
+      h3.modal-title Portfolio strategy
+    .modal-body
+      .form-group.required
+        label Name
+        input.form-control [ng-model='item.name' required]
+    = render partial: 'modal_buttons', locals: { form_name: 'portfolioStrategyForm' }
