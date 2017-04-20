@@ -13,6 +13,10 @@ script type='text/ng-template' id='strategyModal.html'
         label Leverage
         input.form-control [type='number' ng-model='item.leverage' required
           string-to-number]
+      .form-group.required
+        label Tool
+        select.form-control [ng-model='item.tool_id'
+        ng-options='t.id as t.name for t in callbacks.tools']
       .form-group
         label Portfolio
         select.form-control [ng-model='item.portfolio_strategy_id'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419092123) do
+ActiveRecord::Schema.define(version: 20170420185818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,13 +47,11 @@ ActiveRecord::Schema.define(version: 20170419092123) do
   end
 
   create_table "recom_signals", force: :cascade do |t|
-    t.integer  "subscription_type_id",                          null: false
-    t.string   "recom",                                         null: false
-    t.datetime "sigdate",                                       null: false
-    t.decimal  "price",                precision: 12, scale: 2, null: false
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.index ["subscription_type_id"], name: "index_recom_signals_on_subscription_type_id", using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "strategy_id", null: false
+    t.integer  "type_id",     null: false
+    t.index ["strategy_id"], name: "index_recom_signals_on_strategy_id", using: :btree
   end
 
   create_table "strategies", force: :cascade do |t|
@@ -62,7 +60,9 @@ ActiveRecord::Schema.define(version: 20170419092123) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.integer  "portfolio_strategy_id"
+    t.integer  "tool_id"
     t.index ["portfolio_strategy_id"], name: "index_strategies_on_portfolio_strategy_id", using: :btree
+    t.index ["tool_id"], name: "index_strategies_on_tool_id", using: :btree
   end
 
   create_table "subscription_types", force: :cascade do |t|
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20170419092123) do
   create_table "tools", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "users", force: :cascade do |t|
@@ -116,8 +117,8 @@ ActiveRecord::Schema.define(version: 20170419092123) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "recom_signals", "subscription_types"
-  add_foreign_key "strategies", "portfolio_strategies"
+  add_foreign_key "strategies", "portfolio_strategies", on_delete: :restrict
+  add_foreign_key "strategies", "tools", on_delete: :restrict
   add_foreign_key "tool_papers", "papers"
   add_foreign_key "tool_papers", "tools", on_delete: :cascade
 end

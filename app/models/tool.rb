@@ -6,7 +6,7 @@ class Tool < ApplicationRecord
       papers = t.tool_papers.map do |p|
         { id: p.id, paper_id: p.paper_id, volume: p.volume }
       end
-      { id: t.id, papers: papers }
+      { id: t.id, name: t.name, papers: papers }
     end
   end
 end

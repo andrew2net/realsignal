@@ -24,10 +24,10 @@ class Admin::StrategiesController < ApplicationController
 
   protected
   def attrs
-    [:id, :name, :leverage, :portfolio_strategy_id]
+    [:id, :name, :leverage, :portfolio_strategy_id, :tool_id]
   end
 
   def strategy_params
-    params.permit attrs
+    params.require(:strategy).permit attrs
   end
 end

@@ -10,7 +10,7 @@ class Admin::ToolsController < ApplicationController
   end
 
   def create
-    @tool = Tool.create
+    @tool = Tool.create name: params[:name]
     tool_params[:papers].each do |p|
       @tool.tool_papers.create p
     end
@@ -22,7 +22,7 @@ class Admin::ToolsController < ApplicationController
         tool_id: params[:id], paper_id: p[:paper_id])
       tp.update p
     end
-    @tool = Tool.find params[:id]
+    @tool = Tool.update params[:id], name: params[:name]
     paper_ids = tool_params[:papers].map {|el| el[:paper_id]}
     @tool.tool_papers.where.not(paper_id: paper_ids).destroy_all
     render :create, json: true
@@ -36,6 +36,6 @@ class Admin::ToolsController < ApplicationController
   private
 
   def tool_params
-    params.permit :id, papers: [:id, :paper_id, :volume]
+    params.permit :id, :name, papers: [:id, :paper_id, :volume]
   end
 end

@@ -16,11 +16,13 @@ script type='text/ng-template' id='toolModal.html'
         .col-xs-7
           .form-group
             select.form-control [ng-model='tool_paper.paper_id' required
-            ng-options='paper.id as paper.name for paper in callbacks.papers']
+            ng-options='paper.id as paper.name for paper in callbacks.papers'
+            ng-change='callbacks.toolName(item)']
         .col-xs-4
           .form-group
             input.form-control [type='number' ng-model='tool_paper.volume'
-            step='0.1' string-to-number required]
+            step='0.1' string-to-number required
+            ng-change='callbacks.toolName(item)']
         .col-xs-1
           a.pull-right.btn.btn-default [title='Remove paper'
           ng-click='callbacks.removePaper(item, tool_paper, toolForm)']
