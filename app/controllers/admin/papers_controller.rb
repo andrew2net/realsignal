@@ -24,7 +24,7 @@ class Admin::PapersController < ApplicationController
 
   protected
   def attrs
-    [:id, :name, :tick_size, :tick_cost]
+    [:id, :name, :tick_size, :tick_cost, :price_format]
   end
 
   def paper_params

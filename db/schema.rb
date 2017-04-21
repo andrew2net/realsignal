@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420185818) do
+ActiveRecord::Schema.define(version: 20170421100155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,11 +33,12 @@ ActiveRecord::Schema.define(version: 20170420185818) do
   end
 
   create_table "papers", force: :cascade do |t|
-    t.string   "name",       limit: 8,                         null: false
-    t.decimal  "tick_size",            precision: 6, scale: 5, null: false
-    t.decimal  "tick_cost",            precision: 6, scale: 5, null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.string   "name",         limit: 8,                         null: false
+    t.decimal  "tick_size",              precision: 6, scale: 5, null: false
+    t.decimal  "tick_cost",              precision: 6, scale: 5, null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "price_format", limit: 5
   end
 
   create_table "portfolio_strategies", force: :cascade do |t|
@@ -52,6 +53,14 @@ ActiveRecord::Schema.define(version: 20170420185818) do
     t.integer  "strategy_id", null: false
     t.integer  "type_id",     null: false
     t.index ["strategy_id"], name: "index_recom_signals_on_strategy_id", using: :btree
+  end
+
+  create_table "signal_papers", force: :cascade do |t|
+    t.integer "recom_signal_id", null: false
+    t.integer "paper_id",        null: false
+    t.float   "price"
+    t.index ["paper_id"], name: "index_signal_papers_on_paper_id", using: :btree
+    t.index ["recom_signal_id"], name: "index_signal_papers_on_recom_signal_id", using: :btree
   end
 
   create_table "strategies", force: :cascade do |t|
@@ -117,6 +126,8 @@ ActiveRecord::Schema.define(version: 20170420185818) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "signal_papers", "papers"
+  add_foreign_key "signal_papers", "recom_signals"
   add_foreign_key "strategies", "portfolio_strategies", on_delete: :restrict
   add_foreign_key "strategies", "tools", on_delete: :restrict
   add_foreign_key "tool_papers", "papers"

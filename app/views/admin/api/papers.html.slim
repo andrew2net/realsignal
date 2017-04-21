@@ -17,4 +17,7 @@ script type='text/ng-template' id='paperModal.html'
         label Tick cost
         input.form-control [type='number' ng-model='item.tick_cost'
         step='0.00001' min='0', max='9.99999' required string-to-number]
+      .form-group
+        label Price format
+        input.form-control [ng-model='item.price_format', ng-maxlength='5']
     = render partial: 'modal_buttons', locals: { form_name: 'paperForm' }

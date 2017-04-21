@@ -9,6 +9,7 @@ angular.module 'app'
       { name: 'Name', field: 'name' }
       { name: 'Tick size', field: 'tick_size', type: 'number' }
       { name: 'Tick cost', field: 'tick_cost', type: 'number' }
+      { name: 'Price format', field: 'price_format' }
       {
         name: 'Add'
         field: 'add'
