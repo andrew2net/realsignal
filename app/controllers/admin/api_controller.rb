@@ -34,7 +34,7 @@ class Admin::ApiController < ApplicationController
         raise ActiveRecord::Rollback if signal.signal_papers.empty?
       end
     end
-    render json: { response: resp }
+    render plain: resp.join('; ')
   end
 
 end
