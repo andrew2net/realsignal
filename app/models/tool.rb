@@ -1,4 +1,5 @@
 class Tool < ApplicationRecord
+  has_many :strategies, inverse_of: :tool
   has_many :tool_papers, inverse_of: :tool
 
   def self.all_with_papers

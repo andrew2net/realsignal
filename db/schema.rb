@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170421100155) do
+ActiveRecord::Schema.define(version: 20170422133429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,9 @@ ActiveRecord::Schema.define(version: 20170421100155) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "strategy_id", null: false
-    t.integer  "type_id",     null: false
+    t.integer  "signal_type", null: false
+    t.datetime "datetime"
+    t.index ["strategy_id", "signal_type", "datetime"], name: "index_recom_signals_on_strategy_id_and_signal_type_and_datetime", unique: true, using: :btree
     t.index ["strategy_id"], name: "index_recom_signals_on_strategy_id", using: :btree
   end
 
@@ -60,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170421100155) do
     t.integer "paper_id",        null: false
     t.float   "price"
     t.index ["paper_id"], name: "index_signal_papers_on_paper_id", using: :btree
+    t.index ["recom_signal_id", "paper_id"], name: "index_signal_papers_on_recom_signal_id_and_paper_id", unique: true, using: :btree
     t.index ["recom_signal_id"], name: "index_signal_papers_on_recom_signal_id", using: :btree
   end
 

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
     namespace :api do
       get 'views/:view', action: :views
+      post :create_signal
     end
   end
 

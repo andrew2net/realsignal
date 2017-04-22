@@ -28,6 +28,6 @@ class Admin::PapersController < ApplicationController
   end
 
   def paper_params
-    params.permit attrs
+    params.require(:paper).permit attrs
   end
 end
