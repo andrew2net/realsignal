@@ -11,7 +11,8 @@ RSpec.describe Admin::RecomSignalsController, type: :controller do
       tool = create :tool
       create :tool_paper, tool: tool, paper: paper
       strategy = create :strategy, tool: tool
-      recom_signal = create :recom_signal, strategy: strategy,
+      date = DateTime.now.utc
+      recom_signal = create :recom_signal, strategy: strategy, datetime: date,
       signal_type: 'Open Buy'
       create :signal_paper, paper: paper, recom_signal: recom_signal, price: 2
       sign_in admin
@@ -19,7 +20,7 @@ RSpec.describe Admin::RecomSignalsController, type: :controller do
       expect(response).to have_http_status(:success)
       expect(response.body).to include_json([
           {
-            datetime: (be >= DateTime.now),
+            datetime: (be >= date.strftime('%Y-%m-%dT%H:%M:%S.%LZ')),
             signal_type: 'Open Buy',
             papers: [
               price: 2,
