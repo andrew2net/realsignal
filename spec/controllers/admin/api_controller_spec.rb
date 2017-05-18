@@ -36,6 +36,7 @@ RSpec.describe Admin::ApiController, type: :controller do
       post :create_signal, params: p
       post :create_signal, params: p
       expect(response.status).to eq 200
+      expect(response.body).to be_empty
       expect(RecomSignal.count).to eq 2
       expect(SignalPaper.count).to eq 4
     end
@@ -50,6 +51,7 @@ RSpec.describe Admin::ApiController, type: :controller do
       ].to_json}
       post :create_signal, params: p
       expect(response.status).to eq 200
+      expect(response.body).to include('Strategy Strategy 1 not found')
     end
   end
 end
