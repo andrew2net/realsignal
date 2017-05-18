@@ -32,7 +32,7 @@ class Admin::ApiController < ApplicationController
             end
             sp = SignalPaper.find_or_initialize_by recom_signal_id: signal.id,
               paper_id: paper.id
-            sp.save price: p[0]
+            sp.save price: p[1]
             sp_ids << sp.id
           end
           raise ActiveRecord::Rollback if signal.signal_papers.empty?

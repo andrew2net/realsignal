@@ -48,6 +48,7 @@ RSpec.describe Admin::ApiController, type: :controller do
           [ ['EURUSD', 3.345], ['GOLD', 543.74] ]
         ]
       ].to_json}
+      post :create_signal, params: p
       expect(response.status).to eq 200
     end
   end
