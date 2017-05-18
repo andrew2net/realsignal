@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Admin::ApiController, type: :controller do
   before :all do
-    create :strategy
+    @strategy = create :strategy
 
     portfolio = create(:portfolio_strategy,
                        name: 'Portfolio of strategies number two')
@@ -37,6 +37,13 @@ RSpec.describe Admin::ApiController, type: :controller do
       post :create_signal, params: p
       expect(response.status).to eq 200
       expect(response.body).to be_empty
+      datetime = DateTime.parse '20170420165033'
+      signal = RecomSignal.find_by strategy_id: @strategy.id, datetime: datetime,
+      signal_type: 'Open Buy'
+      paper = Paper.find_by name: 'EURUSD'
+      signal_paper = SignalPaper.find_by recom_signal_id: signal.id,
+      paper_id: paper.id
+      expect(signal_paper.price).to eq 3.345
       expect(RecomSignal.count).to eq 2
       expect(SignalPaper.count).to eq 4
     end
