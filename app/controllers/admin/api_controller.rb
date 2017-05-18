@@ -7,7 +7,8 @@ class Admin::ApiController < ApplicationController
 
   def create_signal
     resp = []
-    signals = JSON.parse params[:signals]
+    data = params[:signals].gsub('\'', '"')
+    signals = JSON.parse data
 
     signals.each do |s|
       strategy = Strategy.find_by name: s[0]
@@ -21,6 +22,7 @@ class Admin::ApiController < ApplicationController
         signal = RecomSignal.find_or_create_by strategy_id: strategy.id,
           datetime: datetime, signal_type: RecomSignal.signal_types[s[2]]
 
+        sp_ids = []
         s[3].each do |p|
           paper = Paper.find_by name: p[0]
           unless paper
@@ -30,8 +32,10 @@ class Admin::ApiController < ApplicationController
           sp = SignalPaper.find_or_initialize_by recom_signal_id: signal.id,
             paper_id: paper.id
           sp.save price: p[0]
+          sp_ids << sp.id
         end
         raise ActiveRecord::Rollback if signal.signal_papers.empty?
+        signal.signal_papers.where.not(id: sp_ids).destroy_all
       end
     end
     render plain: resp.join('; ')

@@ -11,18 +11,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'main#index'
-
     devise_for :admins, only: [:session]
-
     resources :admins, only: [:index, :create, :update, :destroy]
-
     resources :users, only: [:index, :create, :update, :destroy]
-
     resources :subscription_types, only: [:index, :create, :update, :destroy]
     resources :papers, only: [:index, :create, :update, :destroy]
     resources :tools, only: [:index, :create, :update, :destroy]
     resources :strategies, only: [:index, :create, :update, :destroy]
     resources :portfolio_strategies, only: [:index, :create, :update, :destroy]
+    get 'recom_signals/index'
 
     namespace :api do
       get 'views/:view', action: :views

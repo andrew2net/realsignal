@@ -1,2 +1,0 @@
-class SignalType < ApplicationRecord
-end

@@ -25,3 +25,4 @@
 /config/deploy_old.rb
 /config/secrets.yml
 /realsignal.sql.gz
+erd.pdf
