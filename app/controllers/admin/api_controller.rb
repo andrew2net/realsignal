@@ -42,6 +42,7 @@ class Admin::ApiController < ApplicationController
     rescue => e
       resp << e.message
     end
+    logger.fatal e.message
     render plain: resp.join('; ')
   end
 
