@@ -39,5 +39,16 @@ RSpec.describe Admin::ApiController, type: :controller do
       expect(RecomSignal.count).to eq 2
       expect(SignalPaper.count).to eq 4
     end
+    it "return strategy not found" do
+      p = { signals: [
+        [
+          'Strategy 1',
+          '20170420165033',
+          'Open Buy',
+          [ ['EURUSD', 3.345], ['GOLD', 543.74] ]
+        ]
+      ].to_json}
+      expect(response.status).to eq 200
+    end
   end
 end
