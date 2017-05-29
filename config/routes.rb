@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   devise_for :users
   scope module: :application do
     root 'main#index'
+    get :account, controller: :account, action: :index
 
     namespace :api do
       get 'views/:view', action: :views
+      get :strategies
+      get :equity_growth
     end
   end
 

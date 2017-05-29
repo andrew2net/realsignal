@@ -20,8 +20,10 @@ class Admin::ApiController < ApplicationController
 
         ActiveRecord::Base.transaction do
           datetime = DateTime.parse s[1]
-          signal = RecomSignal.find_or_create_by strategy_id: strategy.id,
-            datetime: datetime, signal_type: RecomSignal.signal_types[s[2]]
+          signal = RecomSignal.find_or_initialize_by strategy_id: strategy.id,
+            datetime: datetime
+          signal.signal_type = RecomSignal.signal_types[s[2]]
+          signal.save
 
           sp_ids = []
           s[3].each do |p|

@@ -1,0 +1,9 @@
+.container ng-controller='AccountMainCtrl'
+  .row
+    .col-xs-12
+      .form-group
+        label Strategy
+        select.form-control [ng-model='strategy' ng-change='strategyChanged()'
+        ng-options='strategy.id as strategy.name for strategy in strategies']
+  .row
+    #chart.col-xs-12 style='height:500px'

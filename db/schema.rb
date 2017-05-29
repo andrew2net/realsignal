@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422133429) do
+ActiveRecord::Schema.define(version: 20170529201013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20170422133429) do
     t.integer  "strategy_id", null: false
     t.integer  "signal_type", null: false
     t.datetime "datetime"
-    t.index ["strategy_id", "signal_type", "datetime"], name: "index_recom_signals_on_strategy_id_and_signal_type_and_datetime", unique: true, using: :btree
+    t.index ["strategy_id", "datetime"], name: "index_recom_signals_on_strategy_id_and_datetime", unique: true, using: :btree
     t.index ["strategy_id"], name: "index_recom_signals_on_strategy_id", using: :btree
   end
 
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170422133429) do
   create_table "tool_papers", force: :cascade do |t|
     t.integer  "tool_id",                            null: false
     t.integer  "paper_id",                           null: false
-    t.decimal  "volume",     precision: 2, scale: 1, null: false
+    t.decimal  "volume",     precision: 4, scale: 1, null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.index ["paper_id"], name: "index_tool_papers_on_paper_id", using: :btree
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20170422133429) do
   end
 
   add_foreign_key "signal_papers", "papers"
-  add_foreign_key "signal_papers", "recom_signals"
+  add_foreign_key "signal_papers", "recom_signals", on_delete: :cascade
   add_foreign_key "strategies", "portfolio_strategies", on_delete: :restrict
   add_foreign_key "strategies", "tools", on_delete: :restrict
   add_foreign_key "tool_papers", "papers"
