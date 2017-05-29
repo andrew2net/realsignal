@@ -41,12 +41,17 @@ module EquityGrowth
     def complex_price(signal:, tool_papers:, volume_mod: false)
       signal.signal_papers.reduce(0) do |sum, signal_paper|
 
-        tp_vol = tool_papers[signal_paper.paper_id]
-        tp_vol = tp_vol.abs if volume_mod
+        begin
+          tp_vol = tool_papers[signal_paper.paper_id]
+          tp_vol = tp_vol.abs if volume_mod
 
-        sum += signal_paper.price * tp_vol * signal_paper.paper.tick_cost / signal_paper.paper.tick_size
+          sum += signal_paper.price * tp_vol * signal_paper.paper.tick_cost / signal_paper.paper.tick_size
+        rescue => e
+          Rails.logger.debug e.message
+          Rails.logger.debug tool_papers.inspect
+          Rails.logger.debug signal_paper.paper_id
+        end
       end
     end
-
   end
 end
