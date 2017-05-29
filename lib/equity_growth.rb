@@ -39,7 +39,6 @@ module EquityGrowth
     private
 
     def complex_price(signal:, tool_papers:, volume_mod: false)
-      require 'pry'; binding.pry unless signal
       signal.signal_papers.reduce(0) do |sum, signal_paper|
 
         tp_vol = tool_papers[signal_paper.paper_id]
