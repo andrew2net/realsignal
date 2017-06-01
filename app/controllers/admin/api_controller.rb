@@ -27,13 +27,14 @@ class Admin::ApiController < ApplicationController
 
           sp_ids = []
           s[3].each do |p|
-            paper = Paper.find_by name: p[0]
-            unless paper
+            # paper = Paper.find_by name: p[0]
+            tool_paper = strategy.tool.tool_papers.joins(:paper).find_by papers: { name: p[0] }
+            unless tool_paper
               resp << "Paper #{p[0]} not found."
               next
             end
             sp = SignalPaper.find_or_initialize_by recom_signal_id: signal.id,
-              paper_id: paper.id
+              paper_id: tool_paper.paper_id
             sp.update_attribute :price, p[1]
             sp_ids << sp.id
           end
