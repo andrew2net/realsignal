@@ -22,3 +22,9 @@ angular.module 'app'
 .factory 'PortfolioStrategy', ['$resource', ($resource)->
   $resource '/admin/portfolio_strategies/:id.json', id: '@id', { update:{ method: 'PUT' }}
 ]
+.factory 'Subscription', ['$resource', ($resource)->
+  $resource '/admin/subscriptions/:id.json', id: '@id', { update:{ method: 'PUT' }}
+]
+.factory 'SubscriptionType', ['$resource', ($resource)->
+  $resource '/admin/subscription_types/:id.json', id: '@id', { update:{ method: 'PUT' }}
+]

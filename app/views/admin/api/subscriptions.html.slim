@@ -1,0 +1,26 @@
+#subscribtions ui-grid='subscriptionsGrid'
+.loading-stub ng-show='loadingItems'
+
+script type='text/ng-template' id='subscriptionModal.html'
+  form name='subscriptionForm' ng-submit='ok()'
+    .modal-header
+      h3.modal-title Subscription
+    .modal-body
+      .form-group.required
+        label User
+        input.form-control [ng-model='item.user_id' typeahead-editable='false' required
+          typeahead-input-formatter='callbacks.user($model).nameEmail()'
+          uib-typeahead='u.id as u.nameEmail(u) for u in callbacks.users() | filter:$viewValue | limitTo:8' ]
+      .form-group.required
+        label Subscription type
+        select.form-control [ng-model='item.subscription_type_id' required
+          ng-options='sp.id as sp.portfolioPeriod() for sp in callbacks.subscriptionTypes()']
+      .form-group
+        label Valid through
+        .input-group
+          input.form-control [type='text' ng-model='item.end_date' is-open='popupData'
+            uib-datepicker-popup='dd-MM-yyyy']
+          span.input-group-btn
+            button.btn.btn-default [ng-click='popupData=!popupData' type='button']
+              i.glyphicon.glyphicon-calendar
+    = render partial: 'modal_buttons', locals:{form_name: 'subscriptionForm'}

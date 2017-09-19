@@ -1,0 +1,31 @@
+.container-fluid.login-container
+  .row
+    .col-xs-12.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-4
+      = link_to '/' do
+        = image_tag 'logo', class: 'img-responsive center-block'
+
+      - flash.each do |name, msg|
+        = content_tag :p, msg, class: 'flash-message',
+          "ng-class": "{'bg-danger': '#{name}'=='alert'}"
+
+      h2.text-center Log in
+
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        .form-group
+          = f.label :email
+          = f.email_field :email, autofocus: true, class: 'form-control'
+
+        .form-group
+          = f.label :password
+          = f.password_field :password, autocomplete: "off", class: 'form-control'
+
+        - if devise_mapping.rememberable?
+          .checkbox
+            label
+              = f.check_box :remember_me
+              ' Remember me
+
+        .actions
+          = f.submit "Log in", class: 'btn btn-success pull-right'
+
+      = render "users/shared/links"

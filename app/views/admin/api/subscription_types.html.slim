@@ -7,16 +7,15 @@ script type='text/ng-template' id='subscriptionTypeModal.html'
       h3.modal-title Subscription type
     .modal-body
       .form-group.required
-        label Strategy
-        input.form-control [ng-model='item.portid' required]
+        label Portfolio
+        select.form-control [ng-options='p.id as p.name for p in callbacks.portfolios()'
+          ng-model='item.portfolio_strategy_id' required]
       .form-group.required
-        label Trading tool
-        input.form-control [ng-model='item.symid' required]
+        label Period
+        select.form-control [ng-options='p.id as p.name for p in callbacks.periods()'
+          ng-model='item.period' required]
       .form-group.required
         label Price $
         input.form-control [type='number' string-to-number
           ng-model='item.price' required]
-      .form-group
-        label Description
-        textarea.form-control [ng-model='item.description']
     = render partial: 'modal_buttons', locals:{form_name: 'subscriptionTypeForm'}

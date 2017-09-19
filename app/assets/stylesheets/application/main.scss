@@ -6,33 +6,63 @@
 }
 
 body{
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 1.8;
-  color: #000;
+// font-family: 'Open Sans', sans-serif;
+  // font-weight: 300;
+  // font-size: 18px;
+  // line-height: 1.8;
+  // color: #000;
+}
+.flash-message {
+  padding: 15px;
+  margin-top: 20px;
+  color: #333;
+}
+.login-container{
+  min-height: 100vh;
+  padding-top: 40px;
+  background: image-url('trading.jpg') 60% no-repeat;
+  color: #ddd;
+  a {
+    color: #bbb;
+    &:hover {
+      color: #ccc;
+    }
+  }
 }
 h1{
   font-family: "Freight", sans-serif;
   font-weight: 400;
 }
-nav#main-menu{
-  background: #28384B;
-  border: none;
+.navbar-inverse .navbar-nav > li:not(.active) > a:focus {
+  color: #c4c4c4;
 }
-.navbar-default .navbar-nav{
-  &.active{
-    color: #d3c400;
-  }
-  > li > a{
-    font-size: 18px;
-    padding-right: 10px;
-    padding-left: 5px;
-    color: #fff;
-    &:hover{
-      color: lightgray;
-    }
-  }
+nav#main-menu{
+  font-size: 18px;
+//   background: #28384B;
+//   border: none;
+// }
+// .navbar-default .navbar-nav{
+//   // &.active{
+//   //   color: #d3c400;
+//   // }
+//   > li {
+//     &.active > a {
+//       color: #fff !important;
+//       background-color: #555 !important;
+//     }
+    // > a {
+    //   font-size: 18px;
+//       padding-right: 10px;
+//       padding-left: 5px;
+//       color: #ccc;
+//       &:hover{
+//         color: lightgray;
+      // }
+//       &:focus {
+//         color: #ccc !important;
+//       }
+//     }
+//   }
 }
 @media screen and (max-width: 1024px){
   .navbar-default .navbar-nav > li > a{
@@ -49,6 +79,8 @@ nav#main-menu{
 }
 .navbar-logo{
   height: 38px;
+  position: relative;
+  bottom: 5px;
 }
 .header-padding{
   height: 35px;
@@ -81,8 +113,11 @@ nav#main-menu{
 }
 .main-try-btn{
   height: 50px;
-  font-size: 24px;
+  font-size: 24px !important;
   margin-top: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
+  line-height: 1.43 !important;
 }
 .btn-more{
   color: #fff;

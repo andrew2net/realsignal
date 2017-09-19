@@ -5,7 +5,7 @@ class Admin::SubscriptionTypesController < ApplicationController
   def index
     respond_to do |format|
       format.html { render 'admin/main/index' }
-      format.json { render json: SubscriptionType.all, only: attrs }
+      format.json { @subscription_types = SubscriptionType.all }
     end
   end
 
@@ -23,9 +23,13 @@ class Admin::SubscriptionTypesController < ApplicationController
     head :ok
   end
 
+  def periods
+    render json: SubscriptionType.periods.map { |k, v| { id: v, name: k } }
+  end
+
   protected
   def attrs
-    [:id, :portid, :symid, :price, :description]
+    [:id, :portfolio_strategy_id, :period, :price]
   end
 
   def subscription_type_params

@@ -1,9 +1,12 @@
 .container ng-controller='AccountMainCtrl'
-  .row
-    .col-xs-12
-      .form-group
-        label Strategy
-        select.form-control [ng-model='strategy' ng-change='strategyChanged()'
-        ng-options='strategy.id as strategy.name for strategy in strategies']
-  .row
-    #chart.col-xs-12 style='height:500px'
+  uib-tabset type='pills'
+    uib-tab heading='Dashboard' classes='btn-sm'
+      .row.form-horizontal
+        .form-group
+          label.col-xs-1.col-xs-offset-1 Strategy
+          .col-xs-3
+            select.form-control [ng-model='strategy' ng-change='strategyChanged(strategy)'
+            ng-options='strategy.id as strategy.name for strategy in strategies']
+      .row
+        #chart.col-xs-12 style='height:500px'
+    uib-tab heading='Subscriptions' classes='btn-sm'

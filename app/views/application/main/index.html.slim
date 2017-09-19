@@ -1,6 +1,6 @@
 / ui-view
 div ng-controller='MainCtrl'
-  nav#main-menu.navbar.navbar-default.navbar-fixed-top role='navigation'
+  nav#main-menu.navbar.navbar-inverse.navbar-fixed-top role='navigation'
     .container-fluid
       .navbar-header
         button.navbar-toggle [data-toggle='collapse'
@@ -9,32 +9,47 @@ div ng-controller='MainCtrl'
          span.icon-bar
          span.icon-bar
          span.icon-bar
-        a.navbar-brand href='#'
+        a.navbar-brand [href='#intro' du-smooth-scroll]
           = image_tag 'logo', class: 'navbar-logo'
       .collapse.navbar-collapse uib-collapse='!navCollapsed'
         ul.nav.navbar-nav
-          li
-            a href='#howitworks' How it works
-          li
-            a href='#steps' Easy to use
-          li
-            a href='#about' Technology
-          li
-            a href='#features' What you get
-          li
-            a href='#pricing' Subscription
+          li du-scrollspy='howitworks'
+            a [href='#howitworks' du-smooth-scroll] How it works
+          li du-scrollspy='steps'
+            a [href='#steps' du-smooth-scroll] Easy to use
+          li du-scrollspy='about'
+            a [href='#about' du-smooth-scroll] Technology
+          li du-scrollspy='features'
+            a [href='#features' du-smooth-scroll] What you get
+          li du-scrollspy='pricing'
+            a [href='#pricing' du-smooth-scroll] Subscription
           li
             a href='#' FAQ
-        form.navbar-form.navbar-right style='margin:0'
-          .form-group style='margin-right:10px'
-            a.btn.navbar-btn.btn-success href='/auth/login' sign in
-          .form-group
-            a.btn.navbar-btn.btn-warning href='/auth/register' register
+        form.navbar-form.navbar-right style='margin:0;color:#ddd;font-size:14px'
+          - if user_signed_in?
+            |Hello&nbsp;
+            = current_user.full_name
+            |!&nbsp;
+            .form-group
+              = link_to 'account', account_path, rel: 'nofollow',
+                class: 'btn btn-sm navbar-btn btn-success'
+            |&nbsp;
+            .form-group
+              = link_to 'sign out', destroy_user_session_path, rel: 'nofollow',
+                class: 'btn btn-sm navbar-btn btn-warning'
+          - else
+            .form-group
+              = link_to 'sign in', new_user_session_path, rel: 'nofollow',
+                class: 'btn btn-sm navbar-btn btn-success'
+            |&nbsp;
+            .form-group
+              = link_to 'register', new_user_registration_path, rel: 'nofollow',
+                class: 'btn btn-sm navbar-btn btn-warning'
   section#intro
     .container-fluid
       .row
         .col-md-6.col-md-offset-1.col-xs-12.col-sm-12
-          div style='text-align:left'
+          div.text-left
             = image_tag 'logo', class: ['img-responsive', 'hidden-xs']
             h1 style='color:white;text-shadow:1px 1px 1px rgba(0,0,0,0.6)'
               |Trading predictions powered by
@@ -43,7 +58,8 @@ div ng-controller='MainCtrl'
             p.description
               |Discover a machine learning tool for 85% accurate marketing prediction of stock quotes.
       .row.text-center
-        a.btn.btn-success.main-try-btn Get started now!
+        a.btn.btn-success.main-try-btn [
+          href=(user_signed_in? ? account_path : new_user_registration_path)] Get started now!
         a.btn.btn-default.btn-more.main-try-btn Learn more
   section#howitworks
     .container-fluid

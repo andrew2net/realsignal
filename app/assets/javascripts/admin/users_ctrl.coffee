@@ -20,18 +20,19 @@ angular.module 'app'
     data: 'users'
   }
 
-  templateUrl = 'userModal.html'
-  $scope.addItem = -> $editModal.open new User, templateUrl, loadItems
-
-  $scope.editItem = (row)-> $editModal.open row.entity, templateUrl, loadItems
-
-  $scope.removeItem = (row)->
-    if confirm "Delete #{row.entity.email}. Are you sure?"
-      row.entity.$remove -> loadItems()
-
   loadItems = ->
     $scope.loadingItems = true
     $scope.users = User.query -> $scope.loadingItems = false
+
+  callbacks = { reloadItems: loadItems }
+
+  templateUrl = 'userModal.html'
+  $scope.addItem = -> $editModal.open new User, templateUrl, callbacks
+
+  $scope.editItem = (row)-> $editModal.open row.entity, templateUrl, callbacks
+
+  $scope.removeItem = (row)-> $editModal.remove(row.entity,
+  "Delete #{row.entity.first_name} #{row.entity.last_name}.", callbacks)
 
   loadItems()
 ]

@@ -24,6 +24,8 @@ nav.navbar.navbar-default role='navigation'
               a ui-sref='main.strategies' Strategies
             li ng-class='{active: $state.includes("main.subscription_types")}'
               a ui-sref='main.subscription_types' Subscription types
+        li [ui-sref-active='active']
+          a ui-sref='main.subscriptions' Subscriptions
         li [ui-sref-active='active' uib-dropdown]
           a [href='#' uib-dropdown-toggle] Admin
           ul.dropdown-menu [ui-dropdown-menu]
@@ -35,6 +37,8 @@ nav.navbar.navbar-default role='navigation'
       button.btn.btn-default.navbar-btn.navbar-right [title='Sign out'
       ng-click='signOut()']
         span.glyphicon.glyphicon-log-out
+      p.navbar-text.navbar-right
+        | {{ admin_email }} &nbsp;
 
 /p.notice = notice
 /p.alert = alert

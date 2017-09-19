@@ -5,6 +5,10 @@ class Admin::ApiController < ApplicationController
     render params[:view], layout: false
   end
 
+  def current_admin_email
+    render text: current_admin_admin.email
+  end
+
   def create_signal
     resp = []
     begin

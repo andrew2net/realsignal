@@ -2,8 +2,8 @@ angular.module 'app'
 .controller 'AccountMainCtrl', ['$scope', '$http', ($scope, $http)->
   equity_growth_data = []
 
-  getData = ->
-    promise = $http.get '/api/equity_growth', params: {strategy: $scope.strategy}
+  getData = (strategy)->
+    promise = $http.get '/api/equity_growth', params: {strategy: strategy}
     promise.then (resp)-> equity_growth_data = resp.data.map (d)->
       d[0] = new Date d[0]
       d[1] = parseFloat d[1]
@@ -22,8 +22,8 @@ angular.module 'app'
     data.addRows equity_growth_data
     chart.draw data, options
 
-  $scope.strategyChanged = ->
-    getData().then drawChart
+  $scope.strategyChanged = (strategy)->
+    getData(strategy).then drawChart
 
   google.charts.load 'current', {packages: ['corechart']}
 
@@ -31,6 +31,6 @@ angular.module 'app'
   .then (resp)->
     $scope.strategies = resp.data
     $scope.strategy = $scope.strategies[0].id
-    getData().then ->
+    getData($scope.strategy).then ->
       google.charts.setOnLoadCallback drawChart
 ]

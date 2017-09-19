@@ -37,6 +37,12 @@ angular.module 'app', ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.grid']
       controller: 'SubscriptionTypesCtrl'
       templateUrl: '/admin/api/views/subscription_types'
     }
+    subscriptions = {
+      name: 'main.subscriptions'
+      url: '/subscriptions'
+      controller: 'SubscriptionCtrl'
+      templateUrl: '/admin/api/views/subscriptions'
+    }
     admins = {
       name:'main.admins'
       url: '/admins'
@@ -61,6 +67,7 @@ angular.module 'app', ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.grid']
     $stateProvider.state portfolioStrategies
     $stateProvider.state strategies
     $stateProvider.state subscribionTypes
+    $stateProvider.state subscriptions
     $stateProvider.state admins
     $stateProvider.state users
     $stateProvider.state signInState

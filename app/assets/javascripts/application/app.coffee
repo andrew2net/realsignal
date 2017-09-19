@@ -1,4 +1,5 @@
-angular.module 'app', ['ui.bootstrap']
+angular.module 'app', ['ui.bootstrap', 'duScroll']
+.value 'duScrollOffset', 50
 # .config [
 #   '$stateProvider'
 #   '$locationProvider'
