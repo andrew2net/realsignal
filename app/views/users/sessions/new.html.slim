@@ -4,9 +4,7 @@
       = link_to '/' do
         = image_tag 'logo', class: 'img-responsive center-block'
 
-      - flash.each do |name, msg|
-        = content_tag :p, msg, class: 'flash-message',
-          "ng-class": "{'bg-danger': '#{name}'=='alert'}"
+      = flash_messages(flash)
 
       h2.text-center Log in
 

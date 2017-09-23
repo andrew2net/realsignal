@@ -1,0 +1,23 @@
+.container-fluid.login-container
+  .row
+    .col-xs-12.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-4
+      = link_to '/' do
+        = image_tag 'logo', class: 'img-responsive center-block'
+
+      = flash_messages(flash)
+
+      h2.text-center Resend confirmation instructions
+
+      = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+        = devise_error_messages!
+
+        .form-group
+          = f.label :email
+          = f.email_field :email, autofocus: true, class: 'form-control',
+            value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+
+        .row
+          .col-xs-12
+            = f.submit "Resend confirmation instructions", class: 'btn btn-success pull-right'
+
+      = render "users/shared/links"

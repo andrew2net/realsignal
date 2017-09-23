@@ -1,0 +1,22 @@
+.container-fluid.login-container
+  .row
+    .col-xs-12.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-4
+      = link_to '/' do
+        = image_tag 'logo', class: 'img-responsive center-block'
+
+      = flash_messages(flash)
+
+      h2.text-center Resend unlock instructions
+
+      = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+        = devise_error_messages!
+
+        .form-group
+          = f.label :email
+          = f.email_field :email, autofocus: true, class: 'form-control'
+
+        .row
+          .col-xs-12
+            = f.submit "Resend unlock instructions", class: 'btn btn-success pull-right'
+
+      = render "users/shared/links"

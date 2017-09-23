@@ -33,16 +33,14 @@ div ng-controller='MainCtrl'
             .form-group
               = link_to 'account', account_path, rel: 'nofollow',
                 class: 'btn btn-sm navbar-btn btn-success'
-            |&nbsp;
-            .form-group
+              | &nbsp;
               = link_to 'sign out', destroy_user_session_path, rel: 'nofollow',
                 class: 'btn btn-sm navbar-btn btn-warning'
           - else
             .form-group
               = link_to 'sign in', new_user_session_path, rel: 'nofollow',
                 class: 'btn btn-sm navbar-btn btn-success'
-            |&nbsp;
-            .form-group
+              | &nbsp;
               = link_to 'register', new_user_registration_path, rel: 'nofollow',
                 class: 'btn btn-sm navbar-btn btn-warning'
   section#intro
