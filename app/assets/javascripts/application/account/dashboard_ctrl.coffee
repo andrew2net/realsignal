@@ -1,5 +1,5 @@
-angular.module 'app'
-.controller 'AccountMainCtrl', ['$scope', '$http', ($scope, $http)->
+angular.module 'AccountApp'
+.controller 'DashboardCtrl', ['$scope', '$http', ($scope, $http)->
   equity_growth_data = []
 
   getData = (strategy)->

@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
   scope module: :application do
     root 'main#index'
-    get :account, controller: :account, action: :index
+
+    namespace :account do
+      get :dashboard, action: :index, controller: :dashboard # #, controller: :account, action: :index
+      resources :subscriptions
+    end
 
     namespace :api do
       get 'views/:view', action: :views

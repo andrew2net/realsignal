@@ -6,8 +6,8 @@
 $font-family-sans-serif: 'Open Sans', sans-serif;
 $font-size-base: 15px;
 $line-height-base: 1.8;
-$navbar-inverse-link-active-bg: lighten($navbar-inverse-bg, 20%);
-$navbar-inverse-link-color: lighten($gray-light, 30%);
+$navbar-inverse-link-active-bg: black; //lighten($navbar-inverse-bg, 20%);
+$navbar-inverse-link-color: lighten($gray-light, 20%);
 
 @import "font-awesome-sprockets";
 @import "font-awesome";

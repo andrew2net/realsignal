@@ -1,0 +1,23 @@
+din ng-app='AccountApp' ng-controller='AccountMainCtrl'
+  = render partial: 'navbar'
+  .side-nav.navbar-inverse
+    ul.nav.navbar-nav
+      li ui-sref-active='active'
+        a ui-sref='dashboard'
+          i.fa.fa-line-chart &nbsp;
+          |&nbsp;Dashboard
+      li ui-sref-active='active'
+        a ui-sref='subscriptions'
+          i.fa.fa-file-text-o &nbsp;
+          |&nbsp;Subscriptions
+  .margin-top-nav.margin-left-nav.account-page-wrapper
+    .container-fluid
+      div [ncy-breadcrumb]
+      / ol.breadcrumb
+      /   li
+      /     a href='/account'
+      /       i.fa.fa-line-chart &nbsp;
+      /       |&nbsp;Dashboard
+      /   li.active Subscriptions
+
+      ui-view

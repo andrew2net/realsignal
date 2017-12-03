@@ -56,6 +56,36 @@ nav#main-menu{
 .header-padding{
   height: 35px;
 }
+.margin-top-nav {
+  margin-top: 51px;
+}
+.margin-left-nav {
+  margin-left: 200px;
+}
+.account-page-wrapper {
+  padding: 10px;
+}
+.side-nav {
+  position: fixed;
+  height: 100%;
+  width: 200px;
+  z-index: 100;
+  background-color: #222;
+  ul {
+    float: initial;
+    list-style: initial;
+    li {
+      width: 100%;
+      a {
+        color: #c4c4c4;
+        &:hover {
+          background-color: inherit;
+          color: white;
+        }
+      }
+    }
+  }
+}
 #intro{
   display: table;
   width: 100%;
@@ -69,7 +99,6 @@ nav#main-menu{
   background-size: cover;
   padding-top: 50px;
   padding-bottom: 50px;
-  margin-top: 50px;
   > div{
     text-align: left;
     display: table-cell;
