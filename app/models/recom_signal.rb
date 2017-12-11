@@ -36,7 +36,7 @@ class RecomSignal < ApplicationRecord
       end
       "#{sb} #{tool_paper.volume.abs} _#{tool_paper.paper.name}_, #{sp.price}"
     end
-    text = "#{datetime} #{spapers.join("; ")}"
+    text = "#{datetime}\n#{spapers.join("\n")}"
 
     # Send notifications
     User.joins(subscriptions: :subscription_type).where.not(chat_id: nil)
