@@ -1,1 +1,22 @@
-h1 Subscriptions
+p
+  |Our service use a&nbsp;
+  = link_to 'Telegram', 'https://telegram.org', target: '_blank'
+  |&nbsp;messenger for signal notification. Please install the&nbsp;
+  = link_to 'Telegram application', 'https://telegram.org/apps', target: '_blank'
+  |&nbsp;for your desktop or mobile device.
+p
+  |After istalling the Telegram app, click the button&nbsp;
+  = button_tag 'Connect to bot', class: 'btn btn-primary btn-sm', data: { ng_click: 'getTeleramLink()' }
+
+p ng-show='token'
+  |Use the link to create chat with the&nbsp;
+  = link_to 'RealSignal bot', nil, data: { ng_href: 'https://telegram.me/realsignal_bot?start={{token}}' },
+    target: '_blank'
+  |. When new chat is created click START at the bottom. The link is valid for 5 minutes.
+
+= button_tag 'Add subscription', class: 'btn btn-primary', data: { ng_click: 'showSelectSubscriptionModal()' }
+
+script type='text/ng-template' id='selectSubscriptionModal.html'
+  .modal-header
+    h3.modal-title Select subscription plan
+  .modal-body

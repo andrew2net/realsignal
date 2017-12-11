@@ -12,4 +12,42 @@ class RecomSignal < ApplicationRecord
     'Close Buy',
     'Close Sell'
   ]
+
+  def notify_users
+    # Don't notify if signal oldest than 12 hours
+    time_diff = ((DateTime.now.to_i - datetime.to_i) / 1.hour).round
+    return if time_diff > 12 || !is_last?
+
+    # Make message
+    spapers = signal_papers.map do |sp|
+      tool_paper = strategy.tool.tool_papers.find_by_paper_id sp.paper_id
+      sb = if tool_paper.volume < 0
+        if signal_type =~ /Buy$/
+          "*SELL*"
+        else
+          "*BUY*"
+        end
+      else
+        if signal_type =~ /Buy$/
+          "*BUY*"
+        else
+          "*SELL*"
+        end
+      end
+      "#{sb} #{tool_paper.volume.abs} _#{tool_paper.paper.name}_, #{sp.price}"
+    end
+    text = "#{datetime} #{spapers.join("; ")}"
+
+    # Send notifications
+    User.joins(subscriptions: :subscription_type).where.not(chat_id: nil)
+    .where(subscription_types: { portfolio_strategy_id: strategy.portfolio_strategy.id })
+    .where("subscriptions.end_date>=?", DateTime.now).find_each do |user|
+      Telegram.bot.send_message chat_id: user.chat_id, text: text, parse_mode: "Markdown"
+    end
+  end
+
+  # Check if the signal is last for the strategy
+  def is_last?
+    self.class.where(strategy_id: strategy_id).where.not(id: id).maximum(:datetime) < datetime
+  end
 end

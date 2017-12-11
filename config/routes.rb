@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  telegram_webhooks TelegramController
   devise_for :users
   scope module: :application do
     root 'main#index'
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
       get 'views/:view', action: :views
       get :strategies
       get :equity_growth
+      get :telegram_token
     end
   end
 
