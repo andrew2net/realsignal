@@ -1,0 +1,13 @@
+h3 Select subscription plan
+
+.row
+  .col-xs-3 ng-repeat='plan in subscriptionPlans'
+    .panel.panel-default
+      .panel-body
+        .row.text-center
+          .col-xs-12
+            |{{plan.portfolio.name}}
+          .col-xs-12 period: {{plan.period}}
+          .col-xs-12 price: ${{plan.price}}
+          .col-xs-12
+            = link_to 'Subscribe', '#', class: 'btn btn-warning', data: { ng_click: 'subscribe(plan)'}

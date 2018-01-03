@@ -1,9 +1,4 @@
 angular.module 'app'
-.factory 'SubscriptionType', ['$resource', ($resource)->
-  $resource '/admin/subscription_types/:id.json', id: '@id', {
-    update:{method: 'PUT'}
-  }
-]
 .factory 'Admin', ['$resource', ($resource)->
   $resource '/admin/admins/:id.json', id: '@id', {update:{method: 'PUT'}}
 ]

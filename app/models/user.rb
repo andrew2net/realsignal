@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :confirmable, :lockable
 
   has_many :subscriptions, inverse_of: :user
+  has_one :address, inverse_of: :user
 
   def full_name
     "#{first_name} #{last_name}"

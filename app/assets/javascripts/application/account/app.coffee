@@ -1,9 +1,11 @@
-angular.module 'AccountApp', ['ui.bootstrap', 'ui.router', 'ncy-angular-breadcrumb', 'ngSanitize']
+angular.module 'AccountApp', [
+  'ui.bootstrap', 'ui.router', 'ncy-angular-breadcrumb', 'ngSanitize', 'ngFlash'
+]
 .config [
   '$stateProvider'
   '$locationProvider'
   '$breadcrumbProvider'
-  ($stateProvider, $locationProvider, $breadcrumbProvider)->
+  ($stateProvider, $locationProvider, $breadcrumbProvider) ->
     dashboardState = {
       name: 'dashboard'
       url: '/account/dashboard'
@@ -19,8 +21,38 @@ angular.module 'AccountApp', ['ui.bootstrap', 'ui.router', 'ncy-angular-breadcru
       ncyBreadcrumb: { label: '<i class="fa fa-file-text-o"></i> Subscriptions' }
     }
 
+    selectPlanState = {
+      name: 'subscriptions.selectPlan'
+      url: '/select_plan'
+      views: { '@': 'selectPlan' }
+      resolve: { subscriptionPlans: ['$http', ($http) ->
+        $http.get '/account/subscriptions/plans.json'
+        .then (resp) -> resp.data
+      ] }
+      ncyBreadcrumb: { label: 'Select subscription plan' }
+    }
+
+    subscriptionShowState = {
+      name: 'subscriptions.show'
+      url: '/:id'
+      views: { '@': 'showSubscription' }
+      resolve: {
+        subscription: ['$http', '$stateParams', ($http, $stateParams) ->
+          $http.get "/account/subscriptions/#{$stateParams.id}.json"
+          .then (resp) -> resp.data
+        ]
+        billingAddr: ['$http', ($http) ->
+          $http.get '/account/subscriptions/billing_addr.json'
+          .then (resp) -> resp.data
+        ]
+      }
+      ncyBreadcrumb: { label: 'Subscription details' }
+    }
+
     $stateProvider.state dashboardState
     $stateProvider.state subscriptionsState
+    $stateProvider.state selectPlanState
+    $stateProvider.state subscriptionShowState
     $locationProvider.html5Mode true
 
     $breadcrumbProvider.setOptions({

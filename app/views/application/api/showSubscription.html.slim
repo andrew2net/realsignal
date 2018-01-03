@@ -1,0 +1,103 @@
+fieldset
+  legend Subscription details
+
+  .row
+    .col-xs-3
+      b Subscription:
+    .col-xs-3 \#{{subscription.id}}
+  .row
+    .col-xs-3
+      b Created:
+    .col-xs-3
+      |{{subscription.created_at | date:'medium'}}
+  .row
+    .col-xs-3
+      b Potrfolio:
+    .col-xs-3
+      |{{subscription.plan.portfolio.name}}
+  .row
+    .col-xs-3
+      b Period:
+    .col-xs-3
+      |{{subscription.plan.period}}
+  .row
+    .col-xs-3
+      b Amount:
+    .col-xs-3
+      |{{subscription.plan.price | currency}}
+br
+= form_tag '/account/subscriptions', id: 'payCCForm', data: { ng_submit: 'formSubmit($event)',
+  seller_id: ENV['twocheckout_seller_id'], publishable_key: ENV['twocheckout_public_key'],
+  env: ENV['twocheckout_env'] } do
+  = hidden_field_tag :token, data: { ng_model: 'formData.token' }
+  .row
+    .col-xs-12.col-sm-4
+      fieldset ng-init='onLoad()'
+        legend Payment Details
+        .row
+          .form-group.col-xs-12.col-sm-6.col-md-9
+            label Card Number
+            input#ccNo.form-control [type='text' autocomplete='off' required]
+        .row
+          .form-group.col-xs-12.col-sm-6.col-md-6
+            label Expiration Date
+            .row
+              .col-xs-5
+                input#expMonth.form-control.text-center [type='text' size=2 placeholder='MM' required]
+              .col-xs-7
+                input#expYear.form-control.text-center [type='text' size=4 placeholder='YYYY' required]
+          .form-group.col-xs-12.col-sm-6.col-md-3
+            label CVC
+            input#cvv.form-control.text-center [type='text' autocomplete='off' required]
+    .col-xs-12.col-sm-6
+      fieldset
+        legend Billing Address
+        = fields_for :billing_addr do |b|
+          .row
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :first_name, class: 'form-control', required: true,
+                  placeholder: 'First name', data: { ng_model: 'formData.billing_addr.first_name' }
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :last_name, class: 'form-control', required: true, placeholder: 'Last name',
+                  data: { ng_model: 'formData.billing_addr.last_name' }
+          .row
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :addr_line_1, class: 'form-control', required: true, placeholder: 'Address line 1',
+                  data: { ng_model: 'formData.billing_addr.addr_line_1' }
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :addr_line_2, class: 'form-control', placeholder: 'Address line 2',
+                  data: { ng_model: 'formData.billing_addr.addr_line_2' }
+          .row
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :city, class: 'form-control', required: true, placeholder: 'City',
+                  data: { ng_model: 'formData.billing_addr.city' }
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :state, class: 'form-control', required: true, placeholder: 'State',
+                  data: { ng_model: 'formData.billing_addr.state' }
+          .row
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :zip_code, class: 'form-control', required: true, placeholder: 'ZIP code',
+                  data: { ng_model: 'formData.billing_addr.zip_code' }
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :country, class: 'form-control', required: true, placeholder: 'Country',
+                  data: { ng_model: 'formData.billing_addr.country' }
+          .row
+            .col-xs-12.col-sm-6
+              .form-group
+                = b.text_field :phone, class: 'form-control', required: true, placeholder: 'Phone number',
+                  data: { ng_model: 'formData.billing_addr.phone' }
+            .col-xs-12.col-sm-4
+              .form-group
+                = b.text_field :phone_ext, class: 'form-control', placeholder: 'Phone ext',
+                  data: { ng_model: 'formData.billing_addr.phone_ext' }
+  .row
+    .col-xs-12
+      = button_tag 'Submit Payment', class: 'btn btn-primary', data: { ng_disabled: 'disableSubmitButton' }

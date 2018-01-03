@@ -24,5 +24,9 @@
 /config/deploy.rb
 /config/deploy_old.rb
 /config/secrets.yml
+/vendor/
 /realsignal.sql.gz
 erd.pdf
+
+# Ignore application configuration
+/config/application.yml

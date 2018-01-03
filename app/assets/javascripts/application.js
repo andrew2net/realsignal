@@ -1,3 +1,10 @@
+//= require angular
+//= require angular-sanitize
+//= require angular-ui-router
+//= require angular-bootstrap
+//= require angular-scroll
+//= require angular-flash-alert
+//= require angular-breadcrumb
 //= require ./application/home_app.coffee
 //= require ./application/account/app.coffee
 //= require_tree ./application

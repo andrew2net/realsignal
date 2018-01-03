@@ -30,6 +30,9 @@ gem 'font-awesome-sass'
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'telegram-bot'
+gem 'figaro'
+gem 'twocheckout'
+gem "bower-rails", "~> 0.11.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

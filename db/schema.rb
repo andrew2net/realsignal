@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209113400) do
+ActiveRecord::Schema.define(version: 20171227143733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "addr_line_1"
+    t.string "addr_line_2"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code", limit: 12
+    t.string "country"
+    t.string "phone", limit: 15
+    t.string "phone_ext", limit: 5
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
 
   create_table "admins", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -139,6 +154,7 @@ ActiveRecord::Schema.define(version: 20171209113400) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "addresses", "users"
   add_foreign_key "signal_papers", "papers"
   add_foreign_key "signal_papers", "recom_signals", on_delete: :cascade
   add_foreign_key "strategies", "portfolio_strategies", on_delete: :restrict

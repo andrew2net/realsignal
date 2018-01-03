@@ -14,9 +14,4 @@ p ng-show='token'
     target: '_blank'
   |. When new chat is created click START at the bottom. The link is valid for 5 minutes.
 
-= button_tag 'Add subscription', class: 'btn btn-primary', data: { ng_click: 'showSelectSubscriptionModal()' }
-
-script type='text/ng-template' id='selectSubscriptionModal.html'
-  .modal-header
-    h3.modal-title Select subscription plan
-  .modal-body
+= link_to 'Add subscription', nil, class: 'btn btn-primary', data: { ui_sref: 'subscriptions.selectPlan' }

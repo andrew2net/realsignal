@@ -7,7 +7,14 @@ Rails.application.routes.draw do
 
     namespace :account do
       get :dashboard, action: :index, controller: :dashboard # #, controller: :account, action: :index
-      resources :subscriptions
+      resources :subscriptions do
+        collection do
+          get :select_plan
+          get :plans
+          get :billing_addr
+        end
+        post :twocheckout_pay
+      end
     end
 
     namespace :api do

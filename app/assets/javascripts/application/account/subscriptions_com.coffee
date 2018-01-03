@@ -1,18 +1,10 @@
 angular.module 'AccountApp'
 .component 'subscriptions', {
   templateUrl: '/api/views/subscriptions'
-  controller: ['$scope', '$http', '$uibModal', ($scope, $http, $uibModal)->
+  controller: ['$scope', '$http', ($scope, $http) ->
     $scope.getTeleramLink = ->
       $http.get '/api/telegram_token'
-      .then (resp)->
+      .then (resp) ->
         $scope.token = resp.data
-
-    $scope.showSelectSubscriptionModal = ->
-      modalInstance = $uibModal.open {
-        component: 'selectSubscriptionModal'
-      }
   ]
-}
-.component 'selectSubscriptionModal', {
-  templateUrl: 'selectSubscriptionModal.html'
 }
