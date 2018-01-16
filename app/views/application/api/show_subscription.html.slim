@@ -1,0 +1,96 @@
+fieldset
+  legend Subscription details
+
+  .row
+    .col-xs-3
+      b Subscription:
+    .col-xs-3 \#{{$ctrl.subscription.id}}
+  .row
+    .col-xs-3
+      b Created:
+    .col-xs-3
+      |{{$ctrl.subscription.created_at | date:'medium'}}
+  .row
+    .col-xs-3
+      b Potrfolio:
+    .col-xs-3
+      |{{$ctrl.subscription.plan.portfolio.name}}
+  .row
+    .col-xs-3
+      b Period:
+    .col-xs-3
+      |{{$ctrl.subscription.plan.period}}
+  .row
+    .col-xs-3
+      b Amount:
+    .col-xs-3
+      |{{$ctrl.subscription.plan.price | currency}}
+br
+
+= form_tag "https://#{Figaro.env.twocheckout_env}.2checkout.com/checkout/purchase",
+    data: { ng_submit: '$ctrl.formSubmit($event)' } do
+  = hidden_field_tag :sid, Figaro.env.twocheckout_seller_id
+  = hidden_field_tag :mode, '2CO'
+  = hidden_field_tag :li_0_type, :product
+  = hidden_field_tag :li_0_name, nil, data: { ng_value: '$ctrl.subscription.name' }
+  = hidden_field_tag :li_0_price, nil, data: { ng_value: '$ctrl.subscription.plan.price' }
+  = hidden_field_tag :li_0_tangible, 'N'
+  = hidden_field_tag :li_0_product_id, nil, data: { ng_value: '$ctrl.subscription.plan.id' }
+  = hidden_field_tag :li_0_recurrence, nil, data: { ng_value: '$ctrl.subscription.plan.period' }
+  = hidden_field_tag :currency_code, 'USD'
+  = hidden_field_tag :purchase_step, 'payment-method'
+  = hidden_field_tag :merchant_order_id, nil, data: { ng_value: '$ctrl.subscription.id' }
+  = hidden_field_tag :card_holder_name, nil, data: { ng_value: '$ctrl.cardHolderName' }
+  = hidden_field_tag :email, nil, data: { ng_value: '$ctrl.billingAddr.email' }
+
+  .row
+    .col-xs-12.col-sm-12
+      fieldset
+        legend Billing Address
+        .row
+          .col-xs-12.col-sm-6
+            .form-group
+              = text_field_tag :first_name, nil, class: 'form-control', required: true, placeholder: 'First name',
+                data: { ng_model: '$ctrl.billingAddr.first_name' }, maxlength: 64
+          .col-xs-12.col-sm-6
+            .form-group
+              = text_field_tag :last_name, nil, class: 'form-control', required: true, placeholder: 'Last name',
+                data: { ng_model: '$ctrl.billingAddr.last_name' }, maxlength: 64
+          .col-xs-12.col-sm-6
+            .form-group
+              = text_field_tag :street_address, nil, class: 'form-control', required: true, placeholder: 'Address line 1',
+                data: { ng_model: '$ctrl.billingAddr.addr_line_1' }, maxlength: 64
+          .col-xs-12.col-sm-6
+            .form-group
+              = text_field_tag :street_address2, nil, class: 'form-control', placeholder: 'Address line 2',
+                data: { ng_model: '$ctrl.billingAddr.addr_line_2' }, maxlength: 64
+          .col-xs-12.col-sm-4
+            .form-group
+              = text_field_tag :city, nil, class: 'form-control', required: true, placeholder: 'City',
+                data: { ng_model: '$ctrl.billingAddr.city' }, maxlength: 64
+          .col-xs-12.col-sm-2
+            .form-group
+              = text_field_tag :state, nil, class: 'form-control', required: true, placeholder: 'State',
+                data: { ng_model: '$ctrl.billingAddr.state' }, maxlength: 64
+          .col-xs-12.col-sm-2
+            .form-group
+              = text_field_tag :zip, nil, class: 'form-control', required: true, placeholder: 'ZIP code',
+                data: { ng_model: '$ctrl.billingAddr.zip_code' }, maxlength: 16
+          .col-xs-12.col-sm-4
+            .form-group
+              = text_field_tag :country, nil, class: 'form-control', required: true, placeholder: 'Country',
+                data: { ng_model: '$ctrl.billingAddr.country' }, maxlength: 64
+          .col-xs-12.col-sm-4
+            .row
+              .col-xs-8
+                .form-group
+                  = text_field_tag :phone, nil, class: 'form-control', required: true, placeholder: 'Phone number',
+                    data: { ng_model: '$ctrl.billingAddr.phone' }, maxlength: 16
+              .col-xs-4
+                .form-group
+                  = text_field_tag :phone_ext, nil, class: 'form-control', placeholder: 'Phone ext',
+                    data: { ng_model: '$ctrl.billingAddr.phone_ext' }, maxlength: 9
+
+  .row
+    .col-xs-12
+      = button_tag 'Subscribe', class: 'btn btn-primary', data: { ng_disabled: '$ctrl.disableSubmitButton' }

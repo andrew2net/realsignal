@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171227143733) do
+ActiveRecord::Schema.define(version: 20180109204027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 20171227143733) do
     t.string "addr_line_2"
     t.string "city"
     t.string "state"
-    t.string "zip_code", limit: 12
+    t.string "zip_code", limit: 16
     t.string "country"
-    t.string "phone", limit: 15
-    t.string "phone_ext", limit: 5
+    t.string "phone", limit: 16
+    t.string "phone_ext", limit: 9
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 20171227143733) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "end_date"
+    t.integer "status", default: 0
+    t.string "sale_id"
     t.index ["subscription_type_id"], name: "index_subscriptions_on_subscription_type_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   scope module: :application do
     root 'main#index'
+    post :tcwh, controller: :tcwh, action: :webhook
 
     namespace :account do
       get :dashboard, action: :index, controller: :dashboard # #, controller: :account, action: :index
@@ -12,8 +13,9 @@ Rails.application.routes.draw do
           get :select_plan
           get :plans
           get :billing_addr
+          post :billing_addr, action: :save_billing_addr
+          get :success
         end
-        post :twocheckout_pay
       end
     end
 

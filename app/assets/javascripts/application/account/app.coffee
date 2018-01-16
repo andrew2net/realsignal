@@ -49,10 +49,18 @@ angular.module 'AccountApp', [
       ncyBreadcrumb: { label: 'Subscription details' }
     }
 
+    subscriptionSuccessCheckout = {
+      name: 'subscriptions.successCheckout'
+      url: '/success'
+      views: { '@': 'successCheckout' }
+      ncyBreadcrumb: { label: 'Subscribed' }
+    }
+
     $stateProvider.state dashboardState
     $stateProvider.state subscriptionsState
     $stateProvider.state selectPlanState
     $stateProvider.state subscriptionShowState
+    $stateProvider.state subscriptionSuccessCheckout
     $locationProvider.html5Mode true
 
     $breadcrumbProvider.setOptions({

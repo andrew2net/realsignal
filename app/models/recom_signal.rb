@@ -13,6 +13,15 @@ class RecomSignal < ApplicationRecord
     'Close Sell'
   ]
 
+  INVERSE_SIGNALS = {
+    'Open Buy' => 'Open Sell',
+    'Open Sell' => 'Open Buy',
+    'Close Buy, Open Sell' => 'Close Sell, Open Buy',
+    'Close Sell, Open Buy' => 'Close Buy, Open Sell',
+    'Close Buy' => 'Close Sell',
+    'Close Sell' => 'Close Buy'
+  }
+
   def notify_users
     # Don't notify if signal oldest than 12 hours
     time_diff = ((DateTime.now.to_i - datetime.to_i) / 1.hour).round
@@ -22,19 +31,11 @@ class RecomSignal < ApplicationRecord
     spapers = signal_papers.map do |sp|
       tool_paper = strategy.tool.tool_papers.find_by_paper_id sp.paper_id
       sb = if tool_paper.volume < 0
-        if signal_type =~ /Buy$/
-          "*SELL*"
-        else
-          "*BUY*"
-        end
+        INVERSE_SIGNALS[signal_type]
       else
-        if signal_type =~ /Buy$/
-          "*BUY*"
-        else
-          "*SELL*"
-        end
+        signal_type
       end
-      "#{sb} #{tool_paper.volume.abs} _#{tool_paper.paper.name}_, #{sp.price}"
+      "*#{sb}* #{tool_paper.volume.abs} _#{tool_paper.paper.name}_, #{sp.price}"
     end
     text = "#{datetime}\n#{spapers.join("\n")}"
 

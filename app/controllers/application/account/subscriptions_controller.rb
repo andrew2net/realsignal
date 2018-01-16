@@ -27,59 +27,57 @@ class Application::Account::SubscriptionsController < Application::Account::Acco
     @user = current_user
   end
 
-  def twocheckout_pay
-    subscription = Subscription.find params[:subscription_id]
-    Twocheckout::API.credentials = {
-      seller_id:   ENV["twocheckout_seller_id"],
-      private_key: ENV["twocheckout_private_key"],
-      sandbox: 1 # ENV["tocheckout_env"] == "sandbox"
-    }
-
-    if current_user.address
-      current_user.address.update billing_addr_params
+  def success
+    resp = Twocheckout::ValidateResponse.purchase(
+      sid:          Figaro.env.twocheckout_seller_id,
+      secret:       Figaro.env.twocheckout_secret_word,
+      order_number: params[:order_number],
+      total:        params[:total],
+      key:          params[:key]
+    )
+    if resp[:code] == "PASS"
+      Subscription.update params[:merchant_order_id], sale_id: params[:sale_id]
+      update_billing_addrr billing_addr_form_2co
+      redirect_to :index, notice: "The order was successfully created."
     else
-      current_user.address = Address.create billing_addr_params
+      redirect_to account_subscription_url(params[:merchant_order_id]), notice: "Validation failed."
     end
+  end
 
+  def save_billing_addr
+    update_billing_addrr billing_addr_params
     current_user.update first_last_name_params
-
-    billing_addr = billing_addr_params.transform_keys { |k| k.to_s.camelize :lower }
-    billing_addr[:name] = params[:billing_addr][:first_name] + ' ' + params[:billing_addr][:last_name]
-    billing_addr[:email] = current_user.email
-
-    pay_data = {
-      merchantOrderId: params[:subscription_id],
-      token: params[:token],
-      currency: "EUR",
-      # total: subscription.subscription_type.price.to_s,
-      billingAddr: billing_addr.to_h.symbolize_keys.select { |_k, v| !v.nil? },
-      lineItems: [
-        {
-          type: "product",
-          name: subscription.name,
-          quantity: 1,
-          price: subscription.subscription_type.price.to_s,
-          tangible: "N",
-          productId: subscription.subscription_type.id.to_s,
-          recurrence: "1 #{subscription.subscription_type.period}",
-          duration: "Forever"
-        }
-      ]
-    }
-  
-    result = Twocheckout::Checkout.authorize pay_data
-    render json: result, only: [:responseMsg, :responseCode]
-  rescue Exception => e
-    render json: { responseMsg: e.message, responseCode: "EXCEPTION" }
+    head :ok
   end
 
   private
 
   def billing_addr_params
-    params.require(:billing_addr).permit :addr_line_1, :addr_line_2, :city, :state, :zip_code, :country, :phone, :phone_ext
+    params.permit :addr_line_1, :addr_line_2, :city, :state, :zip_code, :country, :phone, :phone_ext
+  end
+
+  def billing_addr_form_2co
+    {
+      addr_line_1: params[:street_address],
+      addr_line_2: params[:street_address2],
+      city:        params[:city],
+      state:       params[:state],
+      zip_code:    params[:zio],
+      country:     params[:country],
+      phone:       params[:phone],
+      phone_ext:   params[:phone_ext]
+    }
+  end
+
+  def update_billing_addrr(billing_addr)
+    if current_user.address
+      current_user.address.update billing_addr
+    else
+      current_user.address = Address.create billing_addr
+    end
   end
 
   def first_last_name_params
-    params.require(:billing_addr).permit :first_name, :last_name
+    params.permit :first_name, :last_name
   end
 end
