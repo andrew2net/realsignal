@@ -1,5 +1,6 @@
 class Admin::ApiController < ApplicationController
   before_action :authenticate_admin_admin!, except: [:views, :create_signal]
+  before_action :filter_ip_address, only: :create_signal
 
   def views
     render params[:view], layout: false
@@ -54,4 +55,10 @@ class Admin::ApiController < ApplicationController
     render plain: resp.join('; ')
   end
 
+  protected
+
+  def filter_ip_address
+    current_ip_address = request.env['HTTP_X_REAL_IP'] || request.env['REMOTE_ADDR']
+    head :unauthorized if current_ip_address != "94.180.118.28"
+  end
 end

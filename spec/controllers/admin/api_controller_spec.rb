@@ -33,6 +33,7 @@ RSpec.describe Admin::ApiController, type: :controller do
           [ ['EURUSD', 2.999], ['GOLD', 544.19] ]
         ]
       ].to_json}
+      request.remote_addr = '94.180.118.28'
       post :create_signal, params: p
       post :create_signal, params: p
       expect(response.status).to eq 200
@@ -47,6 +48,7 @@ RSpec.describe Admin::ApiController, type: :controller do
       expect(RecomSignal.count).to eq 2
       expect(SignalPaper.count).to eq 4
     end
+
     it "return strategy not found" do
       p = { signals: [
         [
@@ -56,9 +58,23 @@ RSpec.describe Admin::ApiController, type: :controller do
           [ ['EURUSD', 3.345], ['GOLD', 543.74] ]
         ]
       ].to_json}
+      request.remote_addr = '94.180.118.28'
       post :create_signal, params: p
       expect(response.status).to eq 200
       expect(response.body).to include('Strategy Strategy 1 not found')
+    end
+
+    it "dont allow put signals form other IPs" do
+      p = { signals: [
+        [
+          'Strategy 1',
+          '20170420165033',
+          'Open Buy',
+          [ ['EURUSD', 3.345], ['GOLD', 543.74] ]
+        ]
+      ].to_json}
+      post :create_signal, params: p
+      expect(response).to have_http_status :unauthorized
     end
   end
 end
