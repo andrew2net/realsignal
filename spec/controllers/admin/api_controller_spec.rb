@@ -35,6 +35,7 @@ RSpec.describe Admin::ApiController, type: :controller do
       ].to_json}
       request.remote_addr = '94.180.118.28'
       post :create_signal, params: p
+      # Second pos same signal should replace previous.
       post :create_signal, params: p
       expect(response.status).to eq 200
       expect(response.body).to be_empty
@@ -47,6 +48,27 @@ RSpec.describe Admin::ApiController, type: :controller do
       expect(signal_paper.price).to eq 3.345
       expect(RecomSignal.count).to eq 2
       expect(SignalPaper.count).to eq 4
+    end
+
+    it "don't accept signal if it breack allowed sequence" do
+      datetime = DateTime.now
+      p = { signals: [[
+        'Strategy one',
+        (datetime - 1.minute).strftime('%Y%m%d%H%M%S'),
+        'Open Buy',
+        [['EURUSD', 3.333], ['GOLD', 544.32]]
+      ]].to_json}
+      request.remote_addr = '94.180.118.28'
+      expect { post :create_signal, params: p }.to change { RecomSignal.count }.by 1
+      p = { signals: [[
+        'Strategy one',
+        datetime.strftime('%Y%m%d%H%M%S'),
+        'Open Sell',
+        [['EURUSD', 3.433], ['GOLD', 544.52]]
+      ]].to_json}
+      expect { post :create_signal, params: p }.to change { RecomSignal.count }.by 0
+      expect(response.status).to eq 200
+      expect(response.body).to include 'Allowed sequence is broken'
     end
 
     it "return strategy not found" do

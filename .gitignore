@@ -27,6 +27,8 @@
 /vendor/
 /realsignal.sql.gz
 erd.pdf
+coverage/
+.vscode/
 
 # Ignore application configuration
 /config/application.yml
