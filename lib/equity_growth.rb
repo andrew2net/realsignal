@@ -13,7 +13,8 @@ module EquityGrowth
       .includes(signal_papers: :paper).each do |signal|
 
         # When first itteration or next siganl after deal closed.
-        if prev_siganl.nil? or prev_siganl.signal_type.match(/Close (Buy|Sell)$/)
+        if prev_siganl.nil? && signal.signal_type.match(/Open (Buy|Sell)$/) ||
+          prev_siganl.signal_type.match(/Close (Buy|Sell)$/)
           prev_siganl = signal
         # When it's a second signal of a deal.
         elsif prev_siganl.signal_type.match(/Open Buy$/) and
@@ -24,6 +25,7 @@ module EquityGrowth
           cp_open = complex_price(signal: prev_siganl, tool_papers: tool_papers)
           cp_close = complex_price(signal: signal, tool_papers: tool_papers)
           funds = complex_price(signal: prev_siganl, tool_papers: tool_papers, volume_mod: true)
+          next if funds == 0
           profit = (cp_close - cp_open) / funds * strategy.leverage
           profit *= -1 if signal.signal_type.match(/^Close Sell/)
           summ += profit

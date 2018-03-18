@@ -42,6 +42,7 @@ br
   = hidden_field_tag :merchant_order_id, nil, data: { ng_value: '$ctrl.subscription.id' }
   = hidden_field_tag :card_holder_name, nil, data: { ng_value: '$ctrl.cardHolderName' }
   = hidden_field_tag :email, nil, data: { ng_value: '$ctrl.billingAddr.email' }
+  = hidden_field_tag :x_receipt_link_url, success_account_subscriptions_url
 
   .row
     .col-xs-12.col-sm-12

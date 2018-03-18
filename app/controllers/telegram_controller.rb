@@ -1,6 +1,6 @@
 class TelegramController < Telegram::Bot::UpdatesController
 
-  # Register user's chat
+  # POST /telegram/:bot_id Register user's chat
   def start(data = nil, *)
     Rails.logger.debug { "Telegram: #{data}" }
     user_id = Rails.cache.read data

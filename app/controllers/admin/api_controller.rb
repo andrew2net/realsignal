@@ -2,14 +2,17 @@ class Admin::ApiController < ApplicationController
   before_action :authenticate_admin_admin!, except: [:views, :create_signal]
   before_action :filter_ip_address, only: :create_signal
 
+  # GET /admin/api/views/:view
   def views
     render params[:view], layout: false
   end
 
+  # GET /admin/api/current_admin_email
   def current_admin_email
-    render text: current_admin_admin.email
+    render plain: current_admin_admin.email
   end
 
+  # POST /admin/api/create_signal
   def create_signal
     resp = []
     data = params[:signals].gsub('\'', '"')

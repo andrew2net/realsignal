@@ -10,12 +10,14 @@ Rails.application.routes.draw do
       get :dashboard, action: :index, controller: :dashboard # #, controller: :account, action: :index
       resources :subscriptions do
         collection do
+          get :has_available_plans
           get :select_plan
           get :plans
           get :billing_addr
           post :billing_addr, action: :save_billing_addr
           get :success
         end
+        post :stop, on: :member
       end
     end
 

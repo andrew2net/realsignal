@@ -34,7 +34,7 @@ class RecomSignal < ApplicationRecord
     spapers = signal_papers.map do |sp|
       tool_paper = strategy.tool.tool_papers.find_by_paper_id sp.paper_id
       sb = if tool_paper.volume < 0
-        SIGNAL_RULES[sgnal_type][:inverse]
+        SIGNAL_RULES[signal_type][:inverse]
       else
         signal_type
       end
@@ -63,7 +63,7 @@ class RecomSignal < ApplicationRecord
       .where('datetime < ?', datetime).order(:datetime).last
     # If previous signal is last then check whether new signal match to rules with previous signal.
     if prev_signal&.is_last? && !signal_type.in?(SIGNAL_RULES[prev_signal.signal_type][:next_allowed])
-      raise SequenceError, 'Allowed sequence is broken'
+      raise SequenceError, "Allowed sequence is broken. Previous signal type is #{prev_signal.signal_type}."
     end
 
     signal = RecomSignal.find_or_initialize_by strategy_id: strategy_id,

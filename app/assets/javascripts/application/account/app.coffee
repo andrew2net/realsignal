@@ -1,5 +1,11 @@
 angular.module 'AccountApp', [
-  'ui.bootstrap', 'ui.router', 'ncy-angular-breadcrumb', 'ngSanitize', 'ngFlash'
+  'ui.bootstrap'
+  'ui.router'
+  'ncy-angular-breadcrumb'
+  'ngSanitize'
+  'ngFlash'
+  'ngResource'
+  'ngAnimate'
 ]
 .config [
   '$stateProvider'

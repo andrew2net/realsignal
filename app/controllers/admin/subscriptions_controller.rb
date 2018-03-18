@@ -24,7 +24,7 @@ class Admin::SubscriptionsController < ApplicationController
   private
 
   def attrs
-    [:id, :subscription_type_id, :user_id, :end_date]
+    [:id, :subscription_type_id, :user_id, :status, :end_date]
   end
 
   def subscription_params

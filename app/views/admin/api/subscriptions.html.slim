@@ -16,6 +16,12 @@ script type='text/ng-template' id='subscriptionModal.html'
         select.form-control [ng-model='item.subscription_type_id' required
           ng-options='sp.id as sp.portfolioPeriod() for sp in callbacks.subscriptionTypes()']
       .form-group
+        .row
+          .col-xs-2
+            label Status
+          .col-xs-10
+            |{{item.status}}
+      .form-group
         label Valid through
         .input-group
           input.form-control [type='text' ng-model='item.end_date' is-open='popupData'

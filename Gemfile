@@ -34,17 +34,20 @@ gem 'figaro'
 gem 'twocheckout'
 gem "bower-rails", "~> 0.11.0"
 
-gem 'simplecov', require: false, group: :test
+group :test do
+  gem 'rspec-rails', '~> 3.5'
+  gem "factory_bot_rails", "~> 4.0"
+  gem 'rspec-json_expectations'
+  gem 'database_cleaner'
+  gem 'simplecov', require: false
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.5'
-  gem 'factory_girl_rails'
-  gem 'rails-erd'
-  gem 'rspec-json_expectations'
-  gem 'database_cleaner'
+  # gem 'rails-erd'
 end
 
 group :development do

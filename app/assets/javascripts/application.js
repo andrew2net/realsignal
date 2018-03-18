@@ -1,4 +1,6 @@
 //= require angular
+//= require angular-animate
+//= require angular-resource
 //= require angular-sanitize
 //= require angular-ui-router
 //= require angular-bootstrap

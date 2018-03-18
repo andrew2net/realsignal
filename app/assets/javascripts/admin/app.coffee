@@ -1,6 +1,6 @@
 angular.module 'app', ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.grid']
 .config ['$stateProvider', '$locationProvider',
-  ($stateProvider, $locationProvider)->
+  ($stateProvider, $locationProvider) ->
     mainState = {
       name: 'main'
       url: '/admin'
@@ -44,7 +44,7 @@ angular.module 'app', ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.grid']
       templateUrl: '/admin/api/views/subscriptions'
     }
     admins = {
-      name:'main.admins'
+      name: 'main.admins'
       url: '/admins'
       templateUrl: '/admin/api/views/admins'
       controller: 'AdminsCtrl'

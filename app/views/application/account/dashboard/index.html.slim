@@ -13,5 +13,20 @@ din ng-app='AccountApp' ng-controller='AccountMainCtrl'
   .margin-top-nav.margin-left-nav.account-page-wrapper
     .container-fluid
       div [ncy-breadcrumb]
-      flash-message
+
+      / Flash alert.
+      flash-message duration=5000
+
+      / Nested view.
       ui-view
+
+  / Confirm modal template.
+  script type='text/ng-template' id='confirmModal.html'
+    .modal-header
+      h4.modal-title Are you sure?
+    .modal-body
+      b
+        |{{message}}
+    .modal-footer
+      button.btn.btn-default.btn-sm type='button' ng-click='close()' OK
+      button.btn.btn-primary.btn-sm type='button' ng-click='dismiss()' Cancel
