@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
   scope module: :application do
     root 'main#index'
+    controller :main do
+      get :more_info
+    end
     post :tcwh, controller: :tcwh, action: :webhook
 
     namespace :account do

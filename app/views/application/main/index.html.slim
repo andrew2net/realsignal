@@ -1,6 +1,6 @@
 / ui-view
 div ng-app='HomeApp' ng-controller='HomeCtrl'
-  = render partial: 'navbar'
+  = render 'navbar'
   section#intro.margin-top-nav
     .container-fluid
       .row
@@ -16,7 +16,8 @@ div ng-app='HomeApp' ng-controller='HomeCtrl'
       .row.text-center
         a.btn.btn-success.main-try-btn [
           href=(user_signed_in? ? account_dashboard_path : new_user_registration_path)] Get started now!
-        a.btn.btn-default.btn-more.main-try-btn Learn more
+        / a.btn.btn-default.btn-more.main-try-btn Learn more
+        = link_to 'Learn more', more_info_path, class: 'btn btn-default btn-more main-try-btn'
   section#howitworks
     .container-fluid
       .row.header-padding
@@ -243,28 +244,5 @@ div ng-app='HomeApp' ng-controller='HomeCtrl'
             = image_tag 'mastercard', class: 'img-responsive payment-icon'
           li
             = image_tag 'paypal', class: 'img-responsive payment-icon'
-  section#contacts
-    .container
-      .row.header-padding
-      .row
-        .col-sm-4.col-md-4.footer-text
-          p Real-Signal is an Artificial Intelligence information service that uses machine learning algorithms to predict outcomes of trading.
-          p We do not provide brocker services and do not recommend any of them.
-        .col-sm-4.col-md-4 style='font-size:13px'
-          p
-            a href='/terms' Terms of use
-          p
-            a href='/faq' FAQ
-          p Copyright © 2016 Real-Signal.com. All rights reserved.
-        .col-sm-4.col-md-4 style='font-size:13px'
-          p
-            |Write us at
-            a ng-click='openEm()' ng-show='!showEm' style='cursor:pointer' ...
-            a ng-href='mailto:{{showEm}}' ng-show='showEm'
-              |{{showEm}}
-          br
-          ul.list-inline
-            li
-              = image_tag 'fb', class: 'img-social'
-            li
-              = image_tag 'twitter', class: 'img-social'
+
+  = render 'footer'

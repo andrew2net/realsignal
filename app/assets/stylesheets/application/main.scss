@@ -22,6 +22,9 @@
     }
   }
 }
+.full-height{
+  min-height: calc(100vh - 202px)
+}
 h1{
   font-family: "Freight", sans-serif;
   font-weight: 400;

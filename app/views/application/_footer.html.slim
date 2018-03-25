@@ -1,0 +1,25 @@
+section#contacts
+  .container
+    .row.header-padding
+    .row
+      .col-sm-4.col-md-4.footer-text
+        p Real-Signal is an Artificial Intelligence information service that uses machine learning algorithms to predict outcomes of trading.
+        p We do not provide brocker services and do not recommend any of them.
+      .col-sm-4.col-md-4 style='font-size:13px'
+        p
+          a href='/terms' Terms of use
+        p
+          a href='/faq' FAQ
+        p Copyright © 2016 Real-Signal.com. All rights reserved.
+      .col-sm-4.col-md-4 style='font-size:13px'
+        p
+          |Write us at
+          a ng-click='openEm()' ng-show='!showEm' style='cursor:pointer' ...
+          a ng-href='mailto:{{showEm}}' ng-show='showEm'
+            |{{showEm}}
+        br
+        ul.list-inline
+          li
+            = image_tag 'fb', class: 'img-social'
+          li
+            = image_tag 'twitter', class: 'img-social'
