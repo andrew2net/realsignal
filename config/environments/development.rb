@@ -51,4 +51,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3003 }
 
   config.assets.debug = true
+
+  config.action_cable.allowed_request_origins = ['ws://localhost:3003']
 end

@@ -1,6 +1,6 @@
 require 'equity_growth'
 
-class Application::ApiController < ApplicationController
+class Application::Api::WebApiController < ApplicationController
 
   # GET /api/views/:view
   def views

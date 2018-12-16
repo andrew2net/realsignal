@@ -3,6 +3,5 @@ class Application::MainController < ApplicationController
   end
 
   def more_info
-    
   end
 end

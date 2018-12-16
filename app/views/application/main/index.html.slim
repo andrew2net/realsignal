@@ -16,7 +16,6 @@ div ng-app='HomeApp' ng-controller='HomeCtrl'
       .row.text-center
         a.btn.btn-success.main-try-btn [
           href=(user_signed_in? ? account_dashboard_path : new_user_registration_path)] Get started now!
-        / a.btn.btn-default.btn-more.main-try-btn Learn more
         = link_to 'Learn more', more_info_path, class: 'btn btn-default btn-more main-try-btn'
   section#howitworks
     .container-fluid

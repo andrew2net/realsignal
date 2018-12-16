@@ -33,6 +33,7 @@ gem 'telegram-bot'
 gem 'figaro'
 gem 'twocheckout'
 gem "bower-rails", "~> 0.11.0"
+gem 'jwt'
 
 group :test do
   gem 'rspec-rails', '~> 3.5'
